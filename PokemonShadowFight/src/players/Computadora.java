@@ -5,6 +5,8 @@
  */
 package players;
 
+import actors.Pokemon;
+
 /**
  *
  * @author Teban18
@@ -17,10 +19,26 @@ public class Computadora extends Jugador{
     }
 
     @Override
-    public void ElegirPokemon() {
-        
-        
-        
+    public void ElegirPokemon(Pokemon pokemon) {
+            
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public boolean isTurno() {
+        return turno;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setTurno(boolean turno) {
+        this.turno = turno;
+    }
+    
+    
     
 }

@@ -5,6 +5,8 @@
  */
 package players;
 
+import actors.Pokemon;
+
 /**
  *
  * @author Teban18
@@ -20,7 +22,7 @@ public abstract class Jugador {
         this.turno=turno;
     }
     
-    public abstract void ElegirPokemon();
+    public abstract void ElegirPokemon(Pokemon pokemon);
     
     public String getnombre(){
         return nombre;
@@ -29,4 +31,15 @@ public abstract class Jugador {
     public boolean getturno(){
         return turno;
     }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setTurno(boolean turno) {
+        this.turno = turno;
+    }
+    
+    
+    
 }

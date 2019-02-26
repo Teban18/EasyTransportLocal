@@ -5,23 +5,40 @@
  */
 package players;
 
+import actors.Pokemon;
+
 /**
  *
  * @author Teban18
  */
 public class Usuario extends Jugador {
 
-    public Usuario (String nombre, boolean turno){
-        
-        super (nombre,turno);
-        
-    }
     
+    public Usuario(String nombre, boolean turno) {
+        super(nombre, turno);
+    }
+
     @Override
-    public void ElegirPokemon() {
-        
-        
-        
+    public void ElegirPokemon(Pokemon pokemon) {
+        System.out.println(pokemon);    
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public boolean isTurno() {
+        return turno;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setTurno(boolean turno) {
+        this.turno = turno;
     }
     
+    
+   
 }
