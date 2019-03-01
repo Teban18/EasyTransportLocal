@@ -21,6 +21,12 @@ public class probar {
     
     public static void main(String[] args) {
         
+       ventanaInicioPokemon v1= new ventanaInicioPokemon(); 
+       v1.setVisible(true);
+       
+        System.out.println("Ejecutando frame principal");
+        
+        
        
        Jugador j=new Usuario("Esteban", true);
        Jugador c=new Computadora("CPU", false);
