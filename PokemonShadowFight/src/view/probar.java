@@ -5,11 +5,10 @@
  */
 package view;
 
+import Controller.Mundo;
 import actors.PokemontipoAire;
 import java.util.ArrayList;
-import players.Computadora;
-import players.Jugador;
-import players.Usuario;
+
 
 /**
  *
@@ -17,30 +16,17 @@ import players.Usuario;
  */
 public class probar {
     
-    public static ArrayList<Jugador> players = new ArrayList<Jugador>();
+   
     
     public static void main(String[] args) {
         
        ventanaInicioPokemon v1= new ventanaInicioPokemon(); 
-       v1.setVisible(true);
        
-        System.out.println("Ejecutando frame principal");
-        
-        
+       Mundo mundopokemon =new Mundo (v1);
        
-       Jugador j=new Usuario("Esteban", true);
-       Jugador c=new Computadora("CPU", false);
+       mundopokemon.empezarVista();
        
-       players.add(j);
-       players.add(c);
-       
-       for (Jugador player : players ){
-           
-           System.out.println(player.getnombre());
-       }
-       
-       
-        
+        System.out.println("Ejecutando frame principal");    
          
         
     }

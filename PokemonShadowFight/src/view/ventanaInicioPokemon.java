@@ -5,6 +5,11 @@
  */
 package view;
 
+import actors.Pokemon;
+import actors.PokemontipoAgua;
+import actors.PokemontipoAire;
+import actors.PokemontipoFuego;
+import actors.PokemontipoTierra;
 import java.applet.AudioClip;
 
 /**
@@ -14,6 +19,14 @@ import java.applet.AudioClip;
 public class ventanaInicioPokemon extends javax.swing.JFrame {
 
     private AudioClip audioinicial;
+    PokemontipoAgua pkagua;
+    PokemontipoAire pkaire;
+    PokemontipoFuego pkfuego;
+    PokemontipoTierra pktierra;
+    Pokemon refpk;
+    String nombrepk;
+    
+    
     
     public ventanaInicioPokemon() {
         initComponents();
@@ -100,39 +113,82 @@ public class ventanaInicioPokemon extends javax.swing.JFrame {
         if (dialogoElegir.obttenerEstado()){
         
         if(dialogoElegir.getPokemon()==1){
-            System.out.println(dialogoElegir.getNombre());
+            
+            pktierra = new PokemontipoTierra(dialogoElegir.getNombre(), "Tierra" , true);
+            System.out.println(pktierra.getNombre());
+            refpk = pktierra;
+            nombrepk= refpk.getNombre();
+            System.out.println(nombrepk);
+            
         }
         
         if (dialogoElegir.getPokemon()==2){
-            System.out.println(dialogoElegir.getNombre());
+            
+            pkfuego = new PokemontipoFuego(dialogoElegir.getNombre(), "Fuego" , true);
+            System.out.println(pkfuego.getNombre());
+            refpk = pkfuego;
+            nombrepk= refpk.getNombre();
+            System.out.println(nombrepk);
         }
         
         if (dialogoElegir.getPokemon()==3){
-            System.out.println(dialogoElegir.getNombre());
+            
+            pktierra = new PokemontipoTierra(dialogoElegir.getNombre(), "Tierra" , true);
+            System.out.println(pktierra.getNombre());
+            refpk = pktierra;
+            nombrepk= refpk.getNombre();
+            System.out.println(nombrepk);
         }
         
         if (dialogoElegir.getPokemon()==4){
-            System.out.println(dialogoElegir.getNombre());
+            
+            pkagua = new PokemontipoAgua(dialogoElegir.getNombre(), "Agua" , true);
+            System.out.println(pkagua.getNombre());
+            refpk = pkagua;
+            nombrepk= refpk.getNombre();
+            System.out.println(nombrepk);
         }
         
         if (dialogoElegir.getPokemon()==5){
-            System.out.println(dialogoElegir.getNombre());
+            
+            pkfuego = new PokemontipoFuego(dialogoElegir.getNombre(), "Fuego" , true);
+            System.out.println(pkfuego.getNombre());
+            refpk = pkfuego;
+            nombrepk= refpk.getNombre();
+            System.out.println(nombrepk);
         }
         
         if (dialogoElegir.getPokemon()==6){
-            System.out.println(dialogoElegir.getNombre());
+            
+            pkaire = new PokemontipoAire(dialogoElegir.getNombre(), "Aire" , true);
+            System.out.println(pkaire.getNombre());
+            refpk = pkaire;
+            nombrepk= refpk.getNombre();
+            System.out.println(nombrepk);
         }
         
         if (dialogoElegir.getPokemon()==7){
-            System.out.println(dialogoElegir.getNombre());
+            
+            pkagua = new PokemontipoAgua(dialogoElegir.getNombre(), "Agua" , true);
+            System.out.println(pkagua.getNombre() );
+            refpk = pkagua;
+            nombrepk= refpk.getNombre();
+            System.out.println(nombrepk);
         
         }
         
         if (dialogoElegir.getPokemon()==8){
-            System.out.println(dialogoElegir.getNombre());
+            
+            pkaire = new PokemontipoAire(dialogoElegir.getNombre(), "Aire" , true);
+            System.out.println(pkaire.getNombre());
+            refpk = pkaire;
+            nombrepk= refpk.getNombre();
+            System.out.println(nombrepk);
     }
         
+        detenerMusica();
         abrirCampoDeBatalla();
+        
         
         }else {
             
@@ -142,12 +198,22 @@ public class ventanaInicioPokemon extends javax.swing.JFrame {
     }
         public void abrirCampoDeBatalla(){
            
-        DialogoCampoDeBatalla campoDeBatalla = new DialogoCampoDeBatalla(this, true);
+        DialogoCampoDeBatalla campoDeBatalla = new DialogoCampoDeBatalla(this, true, nombrepk,"Ludicolo");
         campoDeBatalla.setVisible(true); 
+        
+        int resistenciapokemon = refpk.getResistencia();
+        String resistenciapokemontostring= String.valueOf(resistenciapokemon);
+        campoDeBatalla.setResistencia(resistenciapokemontostring);
+        campoDeBatalla.setNombre(nombrepk);
+        
+            System.out.println(resistenciapokemontostring+"  prueba...");
+            System.out.println(nombrepk +"  prueba...");
         }
-    
-   
-    
+      
+ 
+       private void detenerMusica(){
+        audioinicial.stop();
+    }
    
     
    

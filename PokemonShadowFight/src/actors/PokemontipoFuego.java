@@ -17,26 +17,26 @@ public class PokemontipoFuego extends Pokemon{
     PokemontipoTierra pokemontipotierra;
     PokemontipoFuego pokemontipofuego;
     PokemontipoAire pokemontipoaire;
+    Pokemon pk;
    
     public PokemontipoFuego(String nombre, String tipo, boolean visible) {
         super(nombre, tipo, visible);
     }
 
     @Override
-    public void atacar(Pokemon pokemon_atacado, String mensaje) {
+    public void atacar(Pokemon pokemonatacado, String mensaje) {
         
-       if (pokemon_atacado.equals(pokemontipoagua)){
-           pokemontipoagua.setResistencia(Resistencia-1);
-           System.out.println(pokemontipoagua.getResistencia() + mensaje);
+       if (pokemonatacado.equals(pk)){
+           pk.setResistencia(Resistencia-1);
+           System.out.println(pk.getResistencia() + mensaje);
        }
-       
-       
+   
        
     }
 
     public void anularataque (){
         
-        System.out.println(pokemontipofuego.getResistencia());
+        System.out.println(this.getResistencia());
         
     }
     

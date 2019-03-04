@@ -27,6 +27,8 @@ public abstract class Pokemon {
     public abstract void atacar(Pokemon pokemon_atacado, String mensaje);
     
     public abstract int efectividad_defensa();
+    
+    public abstract void anularataque ();
 
     public int getResistencia() {
         return Resistencia;
