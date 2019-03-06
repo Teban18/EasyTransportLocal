@@ -11,62 +11,27 @@ package actors;
  */
 public class PokemontipoFuego extends Pokemon{
     
-    private int probabilidaddefensa=90;
-    
-    PokemontipoAgua pokemontipoagua;
-    PokemontipoTierra pokemontipotierra;
-    PokemontipoFuego pokemontipofuego;
-    PokemontipoAire pokemontipoaire;
-    Pokemon pk;
+   private final int probabilidaddefensa=90;
    
-    public PokemontipoFuego(String nombre, String tipo, boolean visible) {
-        super(nombre, tipo, visible);
+    public PokemontipoFuego(String nombre,  boolean visible) {
+        super(nombre,  visible);
     }
 
-    @Override
-    public void atacar(Pokemon pokemonatacado, String mensaje) {
-        
-       if (pokemonatacado.equals(pk)){
-           pk.setResistencia(Resistencia-1);
-           System.out.println(pk.getResistencia() + mensaje);
-       }
-   
-       
-    }
-
-    public void anularataque (){
-        
-        System.out.println(this.getResistencia());
-        
-    }
-    
-    @Override
-    public int efectividad_defensa() {
-        
+    public int getProbabilidaddefensa() {
         return probabilidaddefensa;
-        
     }
+
     
-       public int getResistencia() {
-        return Resistencia;
-        
+    
+
+  
+    @Override
+    public boolean atacar(Pokemon pokemon) {
+        return true;
     }
 
-    public void setResistencia(int Resistencia) {
-        this.Resistencia = Resistencia;
-    }
-       
-       
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public boolean isVisible() {
-        return visible;
+    @Override
+    public boolean defender() {
+        return true;
     }
 }

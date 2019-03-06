@@ -5,11 +5,8 @@
  */
 package view;
 
-import actors.Pokemon;
-import actors.PokemontipoAgua;
-import actors.PokemontipoAire;
-import actors.PokemontipoFuego;
-import actors.PokemontipoTierra;
+import Controller.Combate;
+import Controller.MundoPokemon;
 import java.applet.AudioClip;
 
 /**
@@ -19,21 +16,61 @@ import java.applet.AudioClip;
 public class ventanaInicioPokemon extends javax.swing.JFrame {
 
     private AudioClip audioinicial;
-    PokemontipoAgua pkagua;
-    PokemontipoAire pkaire;
-    PokemontipoFuego pkfuego;
-    PokemontipoTierra pktierra;
-    Pokemon refpk;
-    String nombrepk;
-    
-    
+    private MundoPokemon mundoPokemon;
+    private String pokemonaliado;
+    private String pokemonenemigo;
+    public int resistenciaAliado,resistenciaEnemigo;
+    private DialogoCampoDeBatalla campoDeBatalla;
+  
     
     public ventanaInicioPokemon() {
+        
         initComponents();
         ReproducirMusica();
+       
       
     }
 
+
+    public void setMundoPokemon(MundoPokemon mundoPokemon) {
+        this.mundoPokemon = mundoPokemon;
+    }
+
+   
+    
+    
+
+    public String asignarPokemonAliado(){
+        
+        pokemonaliado = mundoPokemon.getPokemon()[0].getNombre();
+        System.out.println("Pokemon Aliado =  "+ pokemonaliado);
+        return pokemonaliado;
+    }
+    
+    public String asignarPokemonEnemigo (){
+        
+        pokemonenemigo = mundoPokemon.getPokemon()[1].getNombre();
+        System.out.println("Pokemon Enemigo = "+ pokemonenemigo);
+        return pokemonenemigo;
+    }
+    
+    public int asignarResistenciaPokemonAliado (){
+        
+        resistenciaAliado = mundoPokemon.getPokemon()[0].getResistencia();
+        System.out.println(resistenciaAliado);
+        return resistenciaAliado;
+    }
+    
+    public int asignarResistenciaPokemonEnemigo (){
+        
+        resistenciaEnemigo = mundoPokemon.getPokemon()[1].getResistencia();
+        System.out.println(resistenciaEnemigo);
+        return resistenciaEnemigo;
+    }
+    
+    
+    
+    
    private void ReproducirMusica(){
         
        try{
@@ -112,80 +149,7 @@ public class ventanaInicioPokemon extends javax.swing.JFrame {
         
         if (dialogoElegir.obttenerEstado()){
         
-        if(dialogoElegir.getPokemon()==1){
-            
-            pktierra = new PokemontipoTierra(dialogoElegir.getNombre(), "Tierra" , true);
-            System.out.println(pktierra.getNombre());
-            refpk = pktierra;
-            nombrepk= refpk.getNombre();
-            System.out.println(nombrepk);
-            
-        }
-        
-        if (dialogoElegir.getPokemon()==2){
-            
-            pkfuego = new PokemontipoFuego(dialogoElegir.getNombre(), "Fuego" , true);
-            System.out.println(pkfuego.getNombre());
-            refpk = pkfuego;
-            nombrepk= refpk.getNombre();
-            System.out.println(nombrepk);
-        }
-        
-        if (dialogoElegir.getPokemon()==3){
-            
-            pktierra = new PokemontipoTierra(dialogoElegir.getNombre(), "Tierra" , true);
-            System.out.println(pktierra.getNombre());
-            refpk = pktierra;
-            nombrepk= refpk.getNombre();
-            System.out.println(nombrepk);
-        }
-        
-        if (dialogoElegir.getPokemon()==4){
-            
-            pkagua = new PokemontipoAgua(dialogoElegir.getNombre(), "Agua" , true);
-            System.out.println(pkagua.getNombre());
-            refpk = pkagua;
-            nombrepk= refpk.getNombre();
-            System.out.println(nombrepk);
-        }
-        
-        if (dialogoElegir.getPokemon()==5){
-            
-            pkfuego = new PokemontipoFuego(dialogoElegir.getNombre(), "Fuego" , true);
-            System.out.println(pkfuego.getNombre());
-            refpk = pkfuego;
-            nombrepk= refpk.getNombre();
-            System.out.println(nombrepk);
-        }
-        
-        if (dialogoElegir.getPokemon()==6){
-            
-            pkaire = new PokemontipoAire(dialogoElegir.getNombre(), "Aire" , true);
-            System.out.println(pkaire.getNombre());
-            refpk = pkaire;
-            nombrepk= refpk.getNombre();
-            System.out.println(nombrepk);
-        }
-        
-        if (dialogoElegir.getPokemon()==7){
-            
-            pkagua = new PokemontipoAgua(dialogoElegir.getNombre(), "Agua" , true);
-            System.out.println(pkagua.getNombre() );
-            refpk = pkagua;
-            nombrepk= refpk.getNombre();
-            System.out.println(nombrepk);
-        
-        }
-        
-        if (dialogoElegir.getPokemon()==8){
-            
-            pkaire = new PokemontipoAire(dialogoElegir.getNombre(), "Aire" , true);
-            System.out.println(pkaire.getNombre());
-            refpk = pkaire;
-            nombrepk= refpk.getNombre();
-            System.out.println(nombrepk);
-    }
-        
+     
         detenerMusica();
         abrirCampoDeBatalla();
         
@@ -198,19 +162,20 @@ public class ventanaInicioPokemon extends javax.swing.JFrame {
     }
         public void abrirCampoDeBatalla(){
            
-        DialogoCampoDeBatalla campoDeBatalla = new DialogoCampoDeBatalla(this, true, nombrepk,"Ludicolo");
+       
+            
+        campoDeBatalla = new DialogoCampoDeBatalla(this, true, asignarPokemonAliado(), asignarPokemonEnemigo(),asignarResistenciaPokemonAliado()
+        ,asignarResistenciaPokemonEnemigo(),asignarPokemonAliado(),asignarPokemonEnemigo());
         campoDeBatalla.setVisible(true); 
         
-        int resistenciapokemon = refpk.getResistencia();
-        String resistenciapokemontostring= String.valueOf(resistenciapokemon);
-        campoDeBatalla.setResistencia(resistenciapokemontostring);
-        campoDeBatalla.setNombre(nombrepk);
         
-            System.out.println(resistenciapokemontostring+"  prueba...");
-            System.out.println(nombrepk +"  prueba...");
+        mundoPokemon.realizarAcciones(campoDeBatalla.getAccionAliado(), campoDeBatalla.getAccionEnemigo());
+        
+        
+        
         }
       
- 
+
        private void detenerMusica(){
         audioinicial.stop();
     }

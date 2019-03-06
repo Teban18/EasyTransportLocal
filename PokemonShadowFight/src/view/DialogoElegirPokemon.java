@@ -5,6 +5,7 @@
  */
 package view;
 
+import Controller.MundoPokemon;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -20,20 +21,26 @@ public class DialogoElegirPokemon extends javax.swing.JDialog {
     /**
      * Creates new form DialogoIntroduccion
      */
-    
+    private MundoPokemon mundoPokemon;
     private boolean estado;
     
     public DialogoElegirPokemon(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         DarTitulo();
-        AjustarImagen();
+        
         
     }
 
     private void DarTitulo(){
         this.setTitle("GameBoy");
     }
+
+    public void setCombate(MundoPokemon mundoPokemon) {
+        this.mundoPokemon = mundoPokemon;
+    }
+    
+    
     
     private void AjustarImagen (){
         
@@ -297,43 +304,35 @@ public class DialogoElegirPokemon extends javax.swing.JDialog {
 
     private void BotonPokemon1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonPokemon1ActionPerformed
         
-        SetPokemon(1);
-        SetNombre("Cubone");
+       
     }//GEN-LAST:event_BotonPokemon1ActionPerformed
 
     private void BotonPokemon2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonPokemon2ActionPerformed
-        SetPokemon(2);
-        SetNombre("Flareon");
+        
     }//GEN-LAST:event_BotonPokemon2ActionPerformed
 
     private void BotonPokemon3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonPokemon3ActionPerformed
-    SetPokemon(3);
-        SetNombre("Flygon");
+    
     }//GEN-LAST:event_BotonPokemon3ActionPerformed
 
     private void BotonPokemon6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonPokemon6ActionPerformed
-        SetPokemon(6);
-        SetNombre("Pidgeotto");
+       
     }//GEN-LAST:event_BotonPokemon6ActionPerformed
 
     private void BotonPokemon4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonPokemon4ActionPerformed
-        SetPokemon(4);
-        SetNombre("Ludicolo");
+       
     }//GEN-LAST:event_BotonPokemon4ActionPerformed
 
     private void BotonPokemon8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonPokemon8ActionPerformed
-        SetPokemon(8);
-        SetNombre("Swablu");
+        
     }//GEN-LAST:event_BotonPokemon8ActionPerformed
 
     private void BotonPokemon7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonPokemon7ActionPerformed
-        SetPokemon(7);
-        SetNombre("Quagsire");
+      
     }//GEN-LAST:event_BotonPokemon7ActionPerformed
 
     private void BotonPokemon5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonPokemon5ActionPerformed
-        SetPokemon(5);
-        SetNombre("Ninetales");
+       
     }//GEN-LAST:event_BotonPokemon5ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

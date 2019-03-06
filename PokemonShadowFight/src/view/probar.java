@@ -5,7 +5,9 @@
  */
 package view;
 
-import Controller.Mundo;
+
+import Controller.MundoPokemon;
+import Controller.Combate;
 import actors.PokemontipoAire;
 import java.util.ArrayList;
 
@@ -20,13 +22,17 @@ public class probar {
     
     public static void main(String[] args) {
         
-       ventanaInicioPokemon v1= new ventanaInicioPokemon(); 
+       Combate combate= new Combate();
+       combate.agregarPokemonArreglo(); 
+       MundoPokemon mundoPokemon = new MundoPokemon();
+       mundoPokemon.setCombate(combate);
+       mundoPokemon.asignarPokemon();
+       ventanaInicioPokemon vistaprincipal= new ventanaInicioPokemon();
+       vistaprincipal.setMundoPokemon(mundoPokemon);
+       vistaprincipal.setVisible(true);
        
-       Mundo mundopokemon =new Mundo (v1);
        
-       mundopokemon.empezarVista();
-       
-        System.out.println("Ejecutando frame principal");    
+          
          
         
     }

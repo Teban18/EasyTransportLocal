@@ -12,23 +12,22 @@ package actors;
 public abstract class Pokemon {
     
     
-    public int Resistencia=10;
+    public int Resistencia =10;
     protected String nombre;
-    protected String tipo;
     protected boolean visible;
     
-    public Pokemon (String nombre, String tipo, boolean visible){
+    public Pokemon (String nombre, boolean visible){
         this.nombre=nombre;
-        this.tipo=tipo;
         this.visible=visible;
         
     }
     
-    public abstract void atacar(Pokemon pokemon_atacado, String mensaje);
+    public abstract boolean atacar(Pokemon pokemon);
+    public abstract boolean defender();
     
-    public abstract int efectividad_defensa();
     
-    public abstract void anularataque ();
+    
+    public abstract int getProbabilidaddefensa();
 
     public int getResistencia() {
         return Resistencia;
@@ -42,9 +41,7 @@ public abstract class Pokemon {
         return nombre;
     }
 
-    public String getTipo() {
-        return tipo;
-    }
+    
 
     public boolean isVisible() {
         return visible;
@@ -54,9 +51,7 @@ public abstract class Pokemon {
         this.nombre = nombre;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
+  
 
     public void setVisible(boolean visible) {
         this.visible = visible;

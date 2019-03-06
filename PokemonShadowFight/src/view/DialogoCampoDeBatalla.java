@@ -20,28 +20,32 @@ public class DialogoCampoDeBatalla extends javax.swing.JDialog {
      * Creates new form CampoDeBatalla
      */
     private AudioClip audiobatalla;
-    private Boolean ataque,defensa,carta;
+    private int accionAliado;
+    private int accionEnemigo;
     
-    public DialogoCampoDeBatalla(java.awt.Frame parent, boolean modal, String pkusuario, String pkcpu) {
+    
+    public DialogoCampoDeBatalla(java.awt.Frame parent, boolean modal, String aliado, String enemigo, int resistenciaAliado, int resistenciaEnemigo,String nombreAliado,String nombreEnemigo) {
         super(parent, modal);
         initComponents();
-        mostrarPk(pkusuario);
-        mostrarPkCpu(pkcpu);
         ReproducirMusica();
+        mostrarPokemonAliado(aliado);
+        mostrarPokemonEnemigo(enemigo);
+        mostrarAtaque(resistenciaAliado, resistenciaEnemigo);
+        mostrarNombre(nombreAliado, nombreEnemigo);
     }
 
     
-    private void mostrarPk(String nombrepk){
+    private void mostrarPokemonAliado(String nombrealiado){
         
-       ImageIcon Imagenpkusuario = new ImageIcon(getClass().getResource("/Aditions/"+nombrepk+".png")) ;
+       ImageIcon Imagenpkusuario = new ImageIcon(getClass().getResource("/Aditions/"+nombrealiado+".png")) ;
        Icon fondopkusuario = new ImageIcon (Imagenpkusuario.getImage().getScaledInstance(this.lpkusuario.getHeight(), this.lpkusuario.getWidth(), Image.SCALE_DEFAULT));
        this.lpkusuario.setIcon(fondopkusuario);
        this.lpkusuario.repaint();
     }
     
-    private void mostrarPkCpu(String nombrepkcpu){
+    private void mostrarPokemonEnemigo(String nombreenemigo){
         
-       ImageIcon Imagenpkcpu = new ImageIcon(getClass().getResource("/Aditions/"+nombrepkcpu+".png")) ;
+       ImageIcon Imagenpkcpu = new ImageIcon(getClass().getResource("/Aditions/"+nombreenemigo+".png")) ;
        Icon fondopkcpu = new ImageIcon (Imagenpkcpu.getImage().getScaledInstance(this.lpkcpu.getHeight(), this.lpkcpu.getWidth(), Image.SCALE_DEFAULT));
        this.lpkcpu.setIcon(fondopkcpu);
        this.lpkcpu.repaint();
@@ -61,40 +65,38 @@ public class DialogoCampoDeBatalla extends javax.swing.JDialog {
             e.getMessage();
         }
    }
-    
-    private void setAtaque (Boolean ataque){
-        this.ataque=ataque;
+
+    public int getAccionAliado() {
+        return accionAliado;
     }
-    
-    public Boolean getAtaque(){
-        return this.ataque;
+
+    public int getAccionEnemigo() {
+        return accionEnemigo;
     }
+
     
-     private void setDefensa (Boolean defensa){
-        this.defensa=defensa;
-    }
     
-    public Boolean getDefensa(){
-        return this.defensa;
-    }
-    
-     private void setCartaYoSeQuienEres (Boolean carta){
-        this.carta=carta;
-    }
-    
-    public Boolean getCartaYoSeQuienEres(){
-        return this.carta;
-    }
-    
-    public void setResistencia(String resistencia){
-        this.txtresistencia.setText(resistencia);
+    public void mostrarAtaque(int aliado,int enemigo){
+        String stringAliado = String.valueOf(aliado);
+        this.txtresistencia.setText(stringAliado);
         this.txtresistencia.setEnabled(false);
+        String stringEnemigo = String.valueOf(enemigo);
+        this.txtresistenciacpu.setText(stringEnemigo);
+        this.txtresistenciacpu.setEnabled(false);
     }
     
-    public void setNombre(String nombre){
-        this.txtnombre.setText(nombre);
+    public void mostrarNombre(String aliado,String enemigo){
+        
+        this.txtnombre.setText(aliado);
         this.txtnombre.setEnabled(false);
+        
+        this.txtnombrecpu.setText(enemigo);
+        this.txtnombrecpu.setEnabled(false);
     }
+    
+    
+   
+  
     
     
     
@@ -166,24 +168,19 @@ public class DialogoCampoDeBatalla extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnAtacarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAtacarActionPerformed
-        setAtaque(true);
-        setDefensa(false);
-        setCartaYoSeQuienEres(false);
+        accionAliado=0;
+        accionEnemigo = (int) (Math.random()*2);
     }//GEN-LAST:event_BtnAtacarActionPerformed
 
     private void BtnYoSeQUienEresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnYoSeQUienEresActionPerformed
 
-        setAtaque(false);
-        setDefensa(false);
-        setCartaYoSeQuienEres(true);
+        
 
     }//GEN-LAST:event_BtnYoSeQUienEresActionPerformed
 
     private void BtnDefenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnDefenderActionPerformed
-        
-        setAtaque(false);
-        setDefensa(true);
-        setCartaYoSeQuienEres(false);
+       accionAliado=1; 
+       accionEnemigo = 0; 
 
     }//GEN-LAST:event_BtnDefenderActionPerformed
 
