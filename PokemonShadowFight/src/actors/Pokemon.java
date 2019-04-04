@@ -12,23 +12,71 @@ package actors;
 public abstract class Pokemon {
     
     
-    public int Resistencia =10;
+    public int Resistencia;
+    protected int probabilidadAtaque;
     protected String nombre;
-    protected boolean visible;
+    protected String tipo;
+    protected int[] arregloprobablilidades;
+    protected int numeroAleatorio;
+    protected String tipoenemigo;
     
-    public Pokemon (String nombre, boolean visible){
+    public Pokemon (String nombre, int Resistencia, String tipo){
         this.nombre=nombre;
-        this.visible=visible;
-        
+        this.tipo=tipo;
+        this.Resistencia=Resistencia;
+        arregloprobablilidades= new int[3];
     }
     
-    public abstract boolean atacar(Pokemon pokemon);
-    public abstract boolean defender();
+    public abstract int atacar(Pokemon pokemon);
     
     
     
-    public abstract int getProbabilidaddefensa();
+    
+    public abstract int defender();
+    public abstract int getProbabilidadAtaque(Pokemon pokemonenemigo);
 
+    public int[] getArregloprobablilidades() {
+        return arregloprobablilidades;
+    }
+
+     public int getProbabilidadAtaque() {
+        return probabilidadAtaque;
+    }
+
+    public void setProbabilidadAtaque(int probabilidadAtaque) {
+        this.probabilidadAtaque = probabilidadAtaque;
+    }
+    
+    public void setTipoenemigo(String tipoenemigo) {
+        this.tipoenemigo = tipoenemigo;
+    }
+
+    public String getTipoenemigo() {
+        return tipoenemigo;
+    }
+    
+    
+
+    public int getNumeroAleatorio() {
+        return numeroAleatorio;
+    }
+
+    public void setNumeroAleatorio(int numeroAleatorio) {
+        this.numeroAleatorio = numeroAleatorio;
+    }
+
+    
+    
+    
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    
     public int getResistencia() {
         return Resistencia;
     }
@@ -42,20 +90,17 @@ public abstract class Pokemon {
     }
 
     
-
-    public boolean isVisible() {
-        return visible;
+    public int[] getArrayProbabilidades() {
+        return getArrayProbabilidades();
     }
-
+    
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
   
 
-    public void setVisible(boolean visible) {
-        this.visible = visible;
-    }
+  
     
     
 }

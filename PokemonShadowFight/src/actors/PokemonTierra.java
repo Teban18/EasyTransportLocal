@@ -9,20 +9,24 @@ package actors;
  *
  * @author Teban18
  */
-public class PokemontipoTierra extends Pokemon {
+public class PokemonTierra extends Pokemon {
     
        
     
        private final int probabilidaddefensa=70;
-    
-    public PokemontipoTierra(String nombre, boolean visible) {
-        super(nombre,  visible);
+
+    public PokemonTierra(String nombre, int Resistencia,String tipo) {
+        super(nombre, Resistencia,tipo);
+        arregloprobablilidades=new int[]{30,60,100,100};
     }
+    
+ 
 
    
     
     public int getProbabilidaddefensa() {
         return probabilidaddefensa;
+        
     }
 
   

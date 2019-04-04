@@ -5,7 +5,7 @@
  */
 package view;
 
-import Controller.MundoPokemon;
+import Controller.Combate;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -21,7 +21,7 @@ public class DialogoElegirPokemon extends javax.swing.JDialog {
     /**
      * Creates new form DialogoIntroduccion
      */
-    private MundoPokemon mundoPokemon;
+    private Combate mundoPokemon;
     private boolean estado;
     
     public DialogoElegirPokemon(java.awt.Frame parent, boolean modal) {
@@ -36,81 +36,11 @@ public class DialogoElegirPokemon extends javax.swing.JDialog {
         this.setTitle("GameBoy");
     }
 
-    public void setCombate(MundoPokemon mundoPokemon) {
+    public void setCombate(Combate mundoPokemon) {
         this.mundoPokemon = mundoPokemon;
     }
     
-    
-    
-    private void AjustarImagen (){
-        
-       ImageIcon ImagenCubone = new ImageIcon(getClass().getResource("/Aditions/Cubone.png")) ;
-       Icon fondoCubone = new ImageIcon (ImagenCubone.getImage().getScaledInstance(BotonPokemon1.getHeight(), BotonPokemon1.getWidth(), Image.SCALE_DEFAULT));
-       BotonPokemon1.setIcon(fondoCubone);
-       BotonPokemon1.repaint();
-        
-       ImageIcon ImagenFlareon = new ImageIcon(getClass().getResource("/Aditions/Flareon.png")) ;
-       Icon fondoFlareon = new ImageIcon (ImagenFlareon.getImage().getScaledInstance(BotonPokemon2.getHeight(), BotonPokemon2.getWidth(), Image.SCALE_DEFAULT));
-       BotonPokemon2.setIcon(fondoFlareon);
-       BotonPokemon2.repaint();
-       
-       
-       ImageIcon ImagenFlygon = new ImageIcon(getClass().getResource("/Aditions/Flygon.png")) ;
-       Icon fondoFlygon = new ImageIcon (ImagenFlygon.getImage().getScaledInstance(BotonPokemon3.getHeight(), BotonPokemon3.getWidth(), Image.SCALE_DEFAULT));
-       BotonPokemon3.setIcon(fondoFlygon);
-       BotonPokemon3.repaint();
-       
-       
-       ImageIcon ImagenLudicolo = new ImageIcon(getClass().getResource("/Aditions/Ludicolo.png")) ;
-       Icon fondoLudicolo = new ImageIcon (ImagenLudicolo.getImage().getScaledInstance(BotonPokemon4.getHeight(), BotonPokemon4.getWidth(), Image.SCALE_DEFAULT));
-       BotonPokemon4.setIcon(fondoLudicolo);
-       BotonPokemon4.repaint();
-       
-       
-       ImageIcon ImagenNinetales = new ImageIcon(getClass().getResource("/Aditions/Ninetales.png")) ;
-       Icon fondoNinetales = new ImageIcon (ImagenNinetales.getImage().getScaledInstance(BotonPokemon5.getHeight(), BotonPokemon5.getWidth(), Image.SCALE_DEFAULT));
-       BotonPokemon5.setIcon(fondoNinetales);
-       BotonPokemon5.repaint();
-       
-       
-       ImageIcon ImagenPidgeotto = new ImageIcon(getClass().getResource("/Aditions/Pidgeotto.png")) ;
-       Icon fondoPidgeotto = new ImageIcon (ImagenPidgeotto.getImage().getScaledInstance(BotonPokemon6.getHeight(), BotonPokemon6.getWidth(), Image.SCALE_DEFAULT));
-       BotonPokemon6.setIcon(fondoPidgeotto);
-       BotonPokemon6.repaint();
-       
-       
-       ImageIcon ImagenQuagsire = new ImageIcon(getClass().getResource("/Aditions/Quagsire.png")) ;
-       Icon fondoQuagsire = new ImageIcon (ImagenQuagsire.getImage().getScaledInstance(BotonPokemon7.getHeight(), BotonPokemon7.getWidth(), Image.SCALE_DEFAULT));
-       BotonPokemon7.setIcon(fondoQuagsire);
-       BotonPokemon7.repaint();
-       
-       
-       ImageIcon ImagenSwablu = new ImageIcon(getClass().getResource("/Aditions/Swablu.png")) ;
-       Icon fondoSwablu = new ImageIcon (ImagenSwablu.getImage().getScaledInstance(BotonPokemon8.getHeight(), BotonPokemon8.getWidth(), Image.SCALE_DEFAULT));
-       BotonPokemon8.setIcon(fondoSwablu);
-       BotonPokemon8.repaint();
-       
-    }
-    
-    private int numeropokemon;
-    
-    private void SetPokemon (int numeropokemon){
-        this.numeropokemon=numeropokemon;
-    }
-    
-    private String nombre;
-    
-    private void SetNombre (String nombre){
-        this.nombre=nombre;
-    }
-    
-    public String getNombre (){
-        return nombre;
-    }
-    
-    public int getPokemon (){
-        return numeropokemon;
-    }
+   
     
      private void setEstado(boolean estado)
     {

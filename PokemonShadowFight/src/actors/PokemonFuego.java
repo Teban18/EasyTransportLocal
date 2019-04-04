@@ -9,31 +9,32 @@ package actors;
  *
  * @author Teban18
  */
-public class PokemontipoAire extends Pokemon {
+public class PokemonFuego extends Pokemon{
     
-       private final int probabilidaddefensa=60;
-    
-    
-    public PokemontipoAire(String nombre,  boolean visible) {
-        super(nombre, visible);
+   private final int probabilidaddefensa=90;
+
+    public PokemonFuego(String nombre, int Resistencia,String tipo) {
+        super(nombre, Resistencia,tipo);
+        arregloprobablilidades=new int[]{100,100,100,100};
     }
+   
+    
 
     public int getProbabilidaddefensa() {
         return probabilidaddefensa;
     }
 
-  
     
-  
+    
 
+  
     @Override
     public boolean atacar(Pokemon pokemon) {
-        
         return true;
     }
 
     @Override
     public boolean defender() {
-       return true;
+        return true;
     }
 }

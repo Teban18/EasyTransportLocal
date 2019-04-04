@@ -5,8 +5,8 @@
  */
 package view;
 
-import Controller.Combate;
 import Controller.MundoPokemon;
+import Controller.Combate;
 import java.applet.AudioClip;
 
 /**
@@ -16,7 +16,7 @@ import java.applet.AudioClip;
 public class ventanaInicioPokemon extends javax.swing.JFrame {
 
     private AudioClip audioinicial;
-    private MundoPokemon mundoPokemon;
+    private Combate combate;
     private String pokemonaliado;
     private String pokemonenemigo;
     public int resistenciaAliado,resistenciaEnemigo;
@@ -32,8 +32,8 @@ public class ventanaInicioPokemon extends javax.swing.JFrame {
     }
 
 
-    public void setMundoPokemon(MundoPokemon mundoPokemon) {
-        this.mundoPokemon = mundoPokemon;
+    public void setCombate(Combate combate) {
+        this.combate = combate;
     }
 
    
@@ -42,28 +42,28 @@ public class ventanaInicioPokemon extends javax.swing.JFrame {
 
     public String asignarPokemonAliado(){
         
-        pokemonaliado = mundoPokemon.getPokemon()[0].getNombre();
+        pokemonaliado = combate.getPokemon()[0].getNombre();
         System.out.println("Pokemon Aliado =  "+ pokemonaliado);
         return pokemonaliado;
     }
     
     public String asignarPokemonEnemigo (){
         
-        pokemonenemigo = mundoPokemon.getPokemon()[1].getNombre();
+        pokemonenemigo = combate.getPokemon()[1].getNombre();
         System.out.println("Pokemon Enemigo = "+ pokemonenemigo);
         return pokemonenemigo;
     }
     
     public int asignarResistenciaPokemonAliado (){
         
-        resistenciaAliado = mundoPokemon.getPokemon()[0].getResistencia();
+        resistenciaAliado = combate.getPokemon()[0].getResistencia();
         System.out.println(resistenciaAliado);
         return resistenciaAliado;
     }
     
     public int asignarResistenciaPokemonEnemigo (){
         
-        resistenciaEnemigo = mundoPokemon.getPokemon()[1].getResistencia();
+        resistenciaEnemigo = combate.getPokemon()[1].getResistencia();
         System.out.println(resistenciaEnemigo);
         return resistenciaEnemigo;
     }
@@ -169,7 +169,7 @@ public class ventanaInicioPokemon extends javax.swing.JFrame {
         campoDeBatalla.setVisible(true); 
         
         
-        mundoPokemon.realizarAcciones(campoDeBatalla.getAccionAliado(), campoDeBatalla.getAccionEnemigo());
+        combate.realizarAcciones(campoDeBatalla.getAccionAliado(), campoDeBatalla.getAccionEnemigo());
         
         
         
