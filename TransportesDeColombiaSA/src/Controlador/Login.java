@@ -19,7 +19,7 @@ import java.sql.SQLException;
  */
 
 
-public class Login implements ConexionBD{
+public class Login implements DBconection{
 
     
     

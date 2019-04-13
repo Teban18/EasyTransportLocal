@@ -17,7 +17,7 @@ public class prueba {
     
     public static void main(String[] args) {
         Login login = new Login();
-        login.conectar("localhost","3306","transporteprueba","root","seleccion18");
+        login.conectar("localhost","3306","transportescolombiasa","root","seleccion18");
     }
     
 }
