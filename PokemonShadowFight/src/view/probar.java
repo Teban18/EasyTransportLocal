@@ -30,6 +30,7 @@ public class probar {
        ventanaInicioPokemon vistaprincipal= new ventanaInicioPokemon();
        vistaprincipal.setCombate(combate);
        vistaprincipal.setVisible(true);
+        
        
        
           

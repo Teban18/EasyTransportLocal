@@ -9,7 +9,7 @@ package LogicaNegocio;
  *
  * @author Teban18
  */
-public class Client extends Usuario{
+public class Client extends User{
     
     private String direccion;
     private String ciudad;

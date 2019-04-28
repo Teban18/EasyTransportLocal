@@ -22,7 +22,9 @@ public class DialogoElegirPokemon extends javax.swing.JDialog {
      * Creates new form DialogoIntroduccion
      */
     private Combate mundoPokemon;
-    private boolean estado;
+    private  boolean estado;
+    
+   
     
     public DialogoElegirPokemon(java.awt.Frame parent, boolean modal) {
         super(parent, modal);

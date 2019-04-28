@@ -9,7 +9,7 @@ package LogicaNegocio;
  *
  * @author Teban18
  */
-public class Administrator extends Usuario {
+public class Administrator extends User {
     
     private Sede sedeperteneciente;
     
@@ -19,19 +19,19 @@ public class Administrator extends Usuario {
         this.sedeperteneciente=sedeperteneciente;
     }
     
-    public void agregarUsuario(Usuario usuario){
+    public void agregarUsuario(User usuario){
         
     }
     
-    public void consultarUsuario(Usuario usuario){
+    public void consultarUsuario(User usuario){
         
     }
     
-    public void editarUsuario(Usuario usuario){
+    public void editarUsuario(User usuario){
         
     }
     
-    public void eliminarUsuario(Usuario usuario){
+    public void eliminarUsuario(User usuario){
         
     }
     
