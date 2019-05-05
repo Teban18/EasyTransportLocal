@@ -17,5 +17,5 @@ package Interfaces;
 
 public interface DBconnection {
     
-    public abstract void connect(String dbname, String user, String pass);
+    public abstract void connect(String dbname);
 }

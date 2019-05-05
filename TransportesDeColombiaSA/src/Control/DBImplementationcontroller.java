@@ -39,7 +39,7 @@ public class DBImplementationcontroller {
     
     
     public void createDB() {
-
+        
         try {
             
             setDBname("TransportesColombiaSA");
@@ -48,7 +48,7 @@ public class DBImplementationcontroller {
             sentence.executeUpdate();
             sentence.close();
             connection.closeConnection();
-            connection.connect(this.getDBname(),"root","seleccion18");
+            connection.connect(this.getDBname());
             System.out.println("Base de datos creada ");
             createTable();
 

@@ -7,25 +7,19 @@ package View;
 
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Teban18
- */
+
+
 public class LoginView extends javax.swing.JDialog {
 
     private String user;
     private String pass;
+    private boolean isclosed;
    
     public LoginView(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
 
-    
-  
-    
-    
-    
     
     
     @SuppressWarnings("unchecked")
@@ -147,6 +141,9 @@ public class LoginView extends javax.swing.JDialog {
         setUser(txtUser.getText());
         setPass(txtPassword.getText());
         
+            setIsClosed(true);
+            this.dispose();
+            
         }else{
             JOptionPane.showMessageDialog(null, "Campos Vacíos");
         }
@@ -167,6 +164,17 @@ public class LoginView extends javax.swing.JDialog {
     public String getPass(){
         return pass;
     }
+    
+    
+    
+  public boolean getIsClosed(){
+      return isclosed;
+  }
+    
+   private void setIsClosed(boolean isclosed){
+       this.isclosed=isclosed;
+   } 
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSignIn;

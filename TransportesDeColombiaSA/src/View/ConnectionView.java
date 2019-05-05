@@ -6,64 +6,54 @@
 package View;
 
 import Control.ConnectionController;
+import Control.DBImplementationcontroller;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Teban18
  */
-public class ConnectionView extends javax.swing.JDialog {
+public class ConnectionView extends javax.swing.JFrame {
 
     private String user;
     private String pass;
-    private boolean close;
-    private ConnectionController connection;
-    
-    
-    public ConnectionView(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    private ConnectionController connectioncontroller;
+    private DBImplementationcontroller dbimplementationcontroller;
+
+    public ConnectionView() {
         initComponents();
+
     }
-    
-   
-    
-    private void setMysqlUser(String user){
-        this.user=user;
+
+    public void setConnectionController(ConnectionController connectioncontroller) {
+        this.connectioncontroller = connectioncontroller;
     }
-    
-    public String getMysqlUser(){
+
+    public void setDBImplementationController(DBImplementationcontroller dbimplementationcontroller) {
+        this.dbimplementationcontroller = dbimplementationcontroller;
+    }
+
+    private void setMysqlUser(String user) {
+        this.user = user;
+    }
+
+    public String getMysqlUser() {
         return user;
     }
-    
-    private void setMysqlPass(String pass){
-        this.pass=pass;
+
+    private void setMysqlPass(String pass) {
+        this.pass = pass;
     }
-    
-    public String getMysqlPass(){
+
+    public String getMysqlPass() {
         return pass;
     }
-    
-    
-    private void setClose(boolean close){
-        this.close=close;
-    }
-    
-    public boolean getClose(){
-        return close;
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtUserMysql = new javax.swing.JTextField();
@@ -73,15 +63,13 @@ public class ConnectionView extends javax.swing.JDialog {
         jLabel5 = new javax.swing.JLabel();
         btnContinue = new javax.swing.JButton();
 
-        jButton1.setText("jButton1");
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Conexión con la Base de datos");
 
         jLabel2.setText("Usuario de Mysql ");
 
-        jLabel3.setText("Por lo general es (root)");
+        jLabel3.setText("Por defecto es (root)");
 
         jLabel4.setText("Contraseña Mysql");
 
@@ -117,7 +105,7 @@ public class ConnectionView extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(103, 103, 103)
                         .addComponent(btnContinue, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addContainerGap(110, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,7 +124,7 @@ public class ConnectionView extends javax.swing.JDialog {
                     .addComponent(txtpassMysql, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(5, 5, 5)
                 .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addComponent(btnContinue)
                 .addGap(40, 40, 40))
         );
@@ -145,19 +133,51 @@ public class ConnectionView extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnContinueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinueActionPerformed
-        
-        
+
+        if (!txtUserMysql.getText().equals("")) {
+
             setMysqlUser(txtUserMysql.getText());
-            setMysqlPass(txtpassMysql.getText());    
-        
-        
-        setClose(true);
-        this.dispose();
+            setMysqlPass(txtpassMysql.getText());
+
+            try {
+                connectioncontroller.connect("");
+                dbimplementationcontroller.createDB();
+
+                if (connectioncontroller.getConnection() != null) {
+
+                    this.dispose();
+                    showLogIn();
+
+                } else {
+                    this.setVisible(true);
+                }
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Credenciales incorrectas, Ingrese nuevamente los datos");
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Campo usuario vacio ");
+        }
     }//GEN-LAST:event_btnContinueActionPerformed
+
+    private void showLogIn() {
+        LoginView loginview = new LoginView(this, true);
+        loginview.setVisible(true);
+
+        if (loginview.getIsClosed()) {
+
+            showMenu();
+        }
+    }
+
+    private void showMenu() {
+        Menu menu = new Menu(this, true);
+        menu.setVisible(true);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnContinue;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

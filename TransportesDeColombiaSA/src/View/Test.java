@@ -18,13 +18,15 @@ public class Test {
      
     
     
-    public static void main(String[] args) {
-        ConnectionController connection= new ConnectionController();
-        connection.connect("", "root", "seleccion18");
-        DBImplementationcontroller DBimplementation = new DBImplementationcontroller();
-        DBimplementation.setConnection(connection);
-        DBimplementation.createDB();
-        
+    public static void main(String[] args) { 
+       ConnectionController connection= new ConnectionController();
+       DBImplementationcontroller DBimplementation = new DBImplementationcontroller();
+       DBimplementation.setConnection(connection);
+       ConnectionView connectionview= new ConnectionView();
+       connectionview.setConnectionController(connection);
+       connectionview.setDBImplementationController(DBimplementation);
+       connection.setConnectionView(connectionview);
+       connectionview.setVisible(true); 
              
     }
     

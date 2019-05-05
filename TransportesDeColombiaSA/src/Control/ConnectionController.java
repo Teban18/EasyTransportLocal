@@ -7,6 +7,7 @@ package Control;
 
 import Interfaces.DBconnection;
 import View.ConnectionView;
+import View.Menu;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -23,6 +24,10 @@ public class ConnectionController implements DBconnection {
     private Connection connection = null;
     
     private ConnectionView connectionview;
+    
+    public void setConnectionView (ConnectionView connectionview){
+        this.connectionview=connectionview;
+    }
 
     /**
      * Conecta la aplicación con el sistema gestor de base de datos, y captura
@@ -43,14 +48,16 @@ public class ConnectionController implements DBconnection {
      *
      */
     @Override
-    public void connect(String dbname, String user, String pass ) {
-
+    
+    public void connect(String dbname ) {
+    
+            
         try {
 
             String driver = "com.mysql.cj.jdbc.Driver";
             String url = "jdbc:mysql://localhost:3306/"+dbname+"?&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true";
 
-            connection = DriverManager.getConnection(url,user,pass);
+            connection = DriverManager.getConnection(url,connectionview.getMysqlUser(),connectionview.getMysqlPass());
 
             System.out.println(" conectando con la base de Datos ...");
             Class.forName(driver);
@@ -73,12 +80,14 @@ public class ConnectionController implements DBconnection {
     
     
     public Connection getConnection() {
+       
         return connection;
     }
 
     
     
     public void closeConnection() {
+        
         try {
             connection.close();
             System.out.println("Se ha finalizado la conexión con Mysql");
