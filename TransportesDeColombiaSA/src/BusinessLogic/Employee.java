@@ -11,32 +11,15 @@ package BusinessLogic;
  */
 public class Employee extends User{
     
-    private String contraseña;
-    private String rol;
+    public Employee(int user_id, String user_identification, String first_name, String last_name, String username, String password, String creation_date, String birth_date, String phone, String rol, String state) {
+        super(user_id, user_identification, first_name, last_name, username, password, creation_date, birth_date, phone, rol, state);
+    }
     
-    public Employee(int idusuario, String nombre, String fechanacimiento, String telefono, String contraseña,
-            String rol) {
-        super(idusuario, nombre, fechanacimiento, telefono);
-        
-        this.contraseña=contraseña;
-        this.rol=rol;
-    }
-
-    public String getContraseña() {
-        return contraseña;
-    }
-
-    public String getRol() {
-        return rol;
-    }
-
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
-    }
-
-    public void setRol(String rol) {
-        this.rol = rol;
-    }
+  
+   
+   
+    
+  
     
     
 }

@@ -42,10 +42,10 @@ public class CityView extends javax.swing.JDialog {
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null}
+                {null, null, null}
             },
             new String [] {
-                "Nombre_Ciudad", "Estado"
+                "Nombre_Ciudad", "Estado", "deparment"
             }
         ));
         jScrollPane2.setViewportView(jTable2);
@@ -54,13 +54,13 @@ public class CityView extends javax.swing.JDialog {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Nombre_Ciudad", "Estado", "fecha_creacion", "Editar", "Eliminar"
+                "Nombre_Ciudad", "Estado", "fecha_creacion", "deparment", "Editar", "Eliminar"
             }
         ));
         jScrollPane1.setViewportView(jTable1);

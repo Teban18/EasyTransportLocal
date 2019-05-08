@@ -7,6 +7,7 @@ package Control;
 
 import BusinessLogic.User;
 import Interfaces.DBconnection;
+import View.ConnectionView;
 
 import View.LoginView;
 import java.sql.Connection;
@@ -14,9 +15,11 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  * Implementa el metodo conectar directamente con Mysql, de igual manera .
@@ -29,25 +32,69 @@ import java.util.logging.Logger;
 public class LoginController {
 
     
-    private LoginView loginview;
+    
     private ConnectionController connection;
-    private PreparedStatement sentence;
-    private ResultSet result;
+    private LoginView loginview;
+    public Statement statement;
+    public ResultSet result;
+    private String dbusername;
+    private String dbpassword;
+ 
     
     public void setConnection(ConnectionController connection) {
         this.connection = connection;
     }
+
+    public void setLoginview(LoginView loginview) {
+        this.loginview = loginview;
+    }
+   
     
    
-    public void log(User user){
+    public void login(String username,String password){
         
-        PreparedStatement sentence;
-        ResultSet result;
+        
+        try {
+        
         Connection connection = this.connection.getConnection();
         
+        String sql= "SELECT * FROM user WHERE username='" + username + "' && password='" + password + "'";
+ 
+        statement = connection.createStatement();
+        result=statement.executeQuery(sql);
         
+            System.out.println("1");
+        while (result.next()) {
+            System.out.println("2");
+            setDbusername(result.getString("username"));
+            setDbpassword(result.getString("password"));
+            System.out.println("3");
+     }
+        
+                }catch(SQLException e){
+                    System.out.println("Usuario no encontrado");
+                }
         
     }
+
+    private void setDbusername(String dbusername) {
+        this.dbusername = dbusername;
+    }
+
+    private void setDbpassword(String dbpassword) {
+        this.dbpassword = dbpassword;
+    }
+
+    public String getDbusername() {
+        return dbusername;
+    }
+
+    public String getDbpassword() {
+        return dbpassword;
+    }
+    
+    
+    
     
     
     

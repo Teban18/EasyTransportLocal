@@ -5,8 +5,11 @@
  */
 package View;
 
+import BusinessLogic.User;
 import Control.ConnectionController;
 import Control.DBImplementationcontroller;
+import Control.LoginController;
+import java.awt.Toolkit;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
@@ -16,15 +19,21 @@ import javax.swing.JOptionPane;
  */
 public class ConnectionView extends javax.swing.JFrame {
 
-    private String user;
+    private String user_class;
     private String pass;
     private ConnectionController connectioncontroller;
     private DBImplementationcontroller dbimplementationcontroller;
+    private LoginView loginview;
 
     public ConnectionView() {
         initComponents();
 
     }
+
+    public void setLoginview(LoginView loginview) {
+        this.loginview = loginview;
+    }
+
 
     public void setConnectionController(ConnectionController connectioncontroller) {
         this.connectioncontroller = connectioncontroller;
@@ -34,12 +43,13 @@ public class ConnectionView extends javax.swing.JFrame {
         this.dbimplementationcontroller = dbimplementationcontroller;
     }
 
+    
     private void setMysqlUser(String user) {
-        this.user = user;
+        this.user_class = user;
     }
 
     public String getMysqlUser() {
-        return user;
+        return user_class;
     }
 
     private void setMysqlPass(String pass) {
@@ -145,7 +155,7 @@ public class ConnectionView extends javax.swing.JFrame {
 
                 if (connectioncontroller.getConnection() != null) {
 
-                    this.dispose();
+                    this.setVisible(false);
                     showLogIn();
 
                 } else {
@@ -161,20 +171,15 @@ public class ConnectionView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnContinueActionPerformed
 
-    private void showLogIn() {
-        LoginView loginview = new LoginView(this, true);
+    private void showLogIn() throws SQLException {
+        
         loginview.setVisible(true);
-
-        if (loginview.getIsClosed()) {
-
-            showMenu();
-        }
+        loginview.setLocationRelativeTo(null);
+        
     }
 
-    private void showMenu() {
-        Menu menu = new Menu(this, true);
-        menu.setVisible(true);
-    }
+ 
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnContinue;

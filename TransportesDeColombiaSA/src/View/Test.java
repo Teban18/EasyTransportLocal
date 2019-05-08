@@ -21,12 +21,30 @@ public class Test {
     public static void main(String[] args) { 
        ConnectionController connection= new ConnectionController();
        DBImplementationcontroller DBimplementation = new DBImplementationcontroller();
+       LoginController logincontroller = new LoginController();
        DBimplementation.setConnection(connection);
+       logincontroller.setConnection(connection);
+       
+       
+       LoginView loginview= new LoginView();
+       MenuView menuview = new MenuView();
        ConnectionView connectionview= new ConnectionView();
+       connection.setConnectionView(connectionview);
+       
+       
        connectionview.setConnectionController(connection);
        connectionview.setDBImplementationController(DBimplementation);
-       connection.setConnectionView(connectionview);
-       connectionview.setVisible(true); 
+       loginview.setLogincontroller(logincontroller);
+       menuview.setConnectioncontroller(connection);
+       
+       
+       connectionview.setLoginview(loginview);
+       loginview.setMenuView(menuview);
+       
+       
+       connectionview.setVisible(true);
+       connectionview.setLocationRelativeTo(null);
+       
              
     }
     

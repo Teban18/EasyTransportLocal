@@ -7,7 +7,6 @@ package Control;
 
 import Interfaces.DBconnection;
 import View.ConnectionView;
-import View.Menu;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;

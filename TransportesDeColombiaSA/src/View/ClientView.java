@@ -42,10 +42,10 @@ public class ClientView extends javax.swing.JDialog {
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Identificación", "Nombre", "Fechade_nacimiento", "Telefono", "DIreccion", "Ciudad"
+                "Identificación", "Nombre", "Apellido", "Fechade_nacimiento", "Telefono", "DIreccion", "Ciudad"
             }
         ));
         jScrollPane2.setViewportView(jTable2);
@@ -54,13 +54,13 @@ public class ClientView extends javax.swing.JDialog {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Identificacion", "Nombre", "Fechade_nacimiento", "Telefono", "Direccion", "Ciudad", "fecha_creacion", "editar", "Eliminar"
+                "Identificacion", "Nombre", "Apellido", "fecha_creacion", "Fechade_nacimiento", "Telefono", "Direccion", "Ciudad", "editar", "Eliminar"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
