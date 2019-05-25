@@ -3,13 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/diegoalejo/Documents/NetBeansProjects/TransportesDeColombiaSA/src/Control/ConnectionController.java</file>
-            <file>file:/C:/Users/diegoalejo/Documents/NetBeansProjects/TransportesDeColombiaSA/src/View/Menu.java</file>
-            <file>file:/C:/Users/diegoalejo/Documents/NetBeansProjects/TransportesDeColombiaSA/src/Interfaces/DBconnection.java</file>
+            <file>file:/C:/Users/diegoalejo/Documents/NetBeansProjects/TransportesDeColombiaSA/src/Control/CrudUserController.java</file>
             <file>file:/C:/Users/diegoalejo/Documents/NetBeansProjects/TransportesDeColombiaSA/src/View/Test.java</file>
+            <file>file:/C:/Users/diegoalejo/Documents/NetBeansProjects/TransportesDeColombiaSA/src/View/CityView.java</file>
+            <file>file:/C:/Users/diegoalejo/Documents/NetBeansProjects/TransportesDeColombiaSA/src/View/MenuView.java</file>
             <file>file:/C:/Users/diegoalejo/Documents/NetBeansProjects/TransportesDeColombiaSA/src/Control/DBImplementationcontroller.java</file>
-            <file>file:/C:/Users/diegoalejo/Documents/NetBeansProjects/TransportesDeColombiaSA/src/View/ConnectionView.java</file>
-            <file>file:/C:/Users/diegoalejo/Documents/NetBeansProjects/TransportesDeColombiaSA/src/Control/LoginController.java</file>
+            <file>file:/C:/Users/diegoalejo/Documents/NetBeansProjects/TransportesDeColombiaSA/src/BusinessLogic/City.java</file>
+            <file>file:/C:/Users/diegoalejo/Documents/NetBeansProjects/TransportesDeColombiaSA/src/View/UserView.java</file>
+            <file>file:/C:/Users/diegoalejo/Documents/NetBeansProjects/TransportesDeColombiaSA/src/BusinessLogic/User.java</file>
         </group>
     </open-files>
 </project-private>

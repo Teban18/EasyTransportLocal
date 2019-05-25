@@ -15,8 +15,7 @@ import javax.swing.JOptionPane;
  */
 public class LoginView extends javax.swing.JFrame {
 
-    private String user;
-    private String pass;
+  
     private LoginController logincontroller;
     private MenuView menuview;
     
@@ -139,12 +138,12 @@ public class LoginView extends javax.swing.JFrame {
         if (!txtUser.getText().equals("") & !txtPassword.getText().equals("")) {
 
             try {
-                System.out.println("4");
+                
                 logincontroller.login(txtUser.getText(),txtPassword.getText());
-                System.out.println("5");
+                
                 
                 if (logincontroller.getDbusername().equals(txtUser.getText()) && logincontroller.getDbpassword().equals(txtPassword.getText())) {
-                    System.out.println("6");
+                    
                     this.setVisible(false);
                     showMenu();
 

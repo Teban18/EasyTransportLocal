@@ -13,24 +13,16 @@ public class Rol {
     
     private String name;
     private String state;
-    private String creation_date;
+    private String created_date;
 
-    public Rol(String name, String state, String creation_date) {
-        this.name = name;
-        this.state = state;
-        this.creation_date=creation_date;
+    public void setCreated_date(String created_date) {
+        this.created_date = created_date;
     }
 
-    public String getCreation_date() {
-        return creation_date;
-    }
-
-    public void setCreation_date(String creation_date) {
-        this.creation_date = creation_date;
+    public String getCreated_date() {
+        return created_date;
     }
     
-    
-
     public void setName(String name) {
         this.name = name;
     }

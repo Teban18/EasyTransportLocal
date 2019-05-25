@@ -11,32 +11,28 @@ package BusinessLogic;
  */
 public class User {
     
-    protected int user_id;
+    
     protected String first_name;
     protected String last_name;
     protected String birth_date;
-    protected String creation_date;
     protected String phone;
     protected String username;
     protected String password;
     protected String rol;
     protected String user_identification;
     protected String state;
-    
-    public User(int user_id, String user_identification, String first_name, String last_name ,String username, String password , String creation_date, String birth_date , String phone, String rol, String state){
-        this.user_id=user_id;
-        this.first_name=first_name;
-        this.last_name=last_name;
-        this.username=username;
-        this.password=password;
-        this.birth_date=birth_date;
-        this.creation_date=creation_date;
-        this.phone=phone;
-        this.rol=rol;
-        this.user_identification=user_identification;
-        this.state=state;
+    private String created_date;
+
+    public void setCreated_date(String created_date) {
+        this.created_date = created_date;
     }
 
+    public String getCreated_date() {
+        return created_date;
+    }
+  
+
+    
     public void setRol(String rol) {
         this.rol = rol;
     }
@@ -64,10 +60,6 @@ public class User {
     }
 
     
-    
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
-    }
 
     public void setFirst_name(String first_name) {
         this.first_name = first_name;
@@ -93,12 +85,9 @@ public class User {
         this.password = password;
     }
 
-    public int getUser_id() {
-        return user_id;
-    }
 
     public String getFirst_name() {
-        return "hola gonorrea";
+        return first_name;
     }
 
     public String getLast_name() {

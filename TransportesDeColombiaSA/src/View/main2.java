@@ -5,8 +5,12 @@
  */
 package View;
 
+import BusinessLogic.City;
 import BusinessLogic.User;
-import Control.Dispath;
+import Control.ConnectionController;
+import Control.CrudUserController;
+import java.awt.Menu;
+import java.util.ArrayList;
 
 /**
  *
@@ -14,10 +18,27 @@ import Control.Dispath;
  */
 public class main2 {
     
-    public static void main(String[] args) {
+    private static void prueba (){
+         
+        ArrayList<City> clist= new ArrayList<City>();
+        City city = new City();
+        city.setName("Cali");
+        city.setState("active");
+        city.setDeparment("Valle");
+        clist.add(city);
+        city.setName("bogota");
+        city.setState("oculto");
+        city.setDeparment("bogota");
+        clist.add(city);
         
-        User u=new User(1, "", "", "", "", "", "", "", "", "", "");
-        Dispath d=new Dispath();
-        d.registry(u);
+        
+        for (City c:clist)
+		System.out.println(c.getName()+c.getState()+c.getDeparment());
+         
+    }
+    
+    public static void main(String[] args) {
+        prueba();
+        
     }
 }

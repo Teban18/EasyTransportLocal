@@ -5,104 +5,126 @@
  */
 package View;
 
-import BusinessLogic.User;
 import Control.ConnectionController;
+import Control.Crud;
+
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
  *
- * @author Teban18
+ * @author Deiber
  */
 public class MenuView extends javax.swing.JFrame {
-
-    private ConnectionController connectioncontroller;
     
-    
+    CityView cityview;
+    ClientView clientview;
+    ShipmentView shipmentview;
+    UserView userview;
+    RolView rolview;
+    ReportView reportview;
+    Crud crud;
     
     public MenuView() {
         initComponents();
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         
     }
 
-    public void setConnectioncontroller(ConnectionController connectioncontroller) {
-        this.connectioncontroller = connectioncontroller;
+    public void setCrud(Crud crud) {
+        this.crud = crud;
+    }
+    
+    public void setCityview(CityView cityview) {
+        this.cityview = cityview;
+    }
+
+    public void setClientview(ClientView clientview) {
+        this.clientview = clientview;
+    }
+
+    public void setShipmentview(ShipmentView shipmentview) {
+        this.shipmentview = shipmentview;
+    }
+
+    public void setUserview(UserView userview) {
+        this.userview = userview;
+    }
+
+    public void setRolview(RolView rolview) {
+        this.rolview = rolview;
+    }
+
+    public void setReportview(ReportView reportview) {
+        this.reportview = reportview;
     }
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnClient = new javax.swing.JButton();
-        btnCity = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        btnRol = new javax.swing.JButton();
-        btnReport = new javax.swing.JButton();
-        btnShipment = new javax.swing.JButton();
-        btnUser = new javax.swing.JButton();
+        btnrol = new javax.swing.JButton();
+        btncity = new javax.swing.JButton();
+        btnshipment = new javax.swing.JButton();
+        btnclient = new javax.swing.JButton();
+        btnreport = new javax.swing.JButton();
+        btnuser = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
 
-        btnClient.setText("Clientes");
-        btnClient.addActionListener(new java.awt.event.ActionListener() {
+        btnrol.setBackground(new java.awt.Color(255, 255, 255));
+        btnrol.setText("Roles");
+        btnrol.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnrol.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnClientActionPerformed(evt);
+                btnrolActionPerformed(evt);
             }
         });
 
-        btnCity.setText("Ciudades");
-        btnCity.addActionListener(new java.awt.event.ActionListener() {
+        btncity.setBackground(new java.awt.Color(255, 255, 255));
+        btncity.setText("Ciudades");
+        btncity.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btncity.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCityActionPerformed(evt);
+                btncityActionPerformed(evt);
             }
         });
 
-        jButton7.setText("Logout");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        btnshipment.setBackground(new java.awt.Color(255, 255, 255));
+        btnshipment.setText("Envíos");
+        btnshipment.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnshipment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                btnshipmentActionPerformed(evt);
             }
         });
 
-        btnRol.setText("Roles");
-        btnRol.addActionListener(new java.awt.event.ActionListener() {
+        btnclient.setBackground(new java.awt.Color(255, 255, 255));
+        btnclient.setText("Clientes");
+        btnclient.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnclient.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRolActionPerformed(evt);
+                btnclientActionPerformed(evt);
             }
         });
 
-        btnReport.setText("Reportes");
-        btnReport.addActionListener(new java.awt.event.ActionListener() {
+        btnreport.setBackground(new java.awt.Color(255, 255, 255));
+        btnreport.setText("Reportes");
+        btnreport.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnreport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReportActionPerformed(evt);
+                btnreportActionPerformed(evt);
             }
         });
 
-        btnShipment.setText("Envíos");
-        btnShipment.addActionListener(new java.awt.event.ActionListener() {
+        btnuser.setBackground(new java.awt.Color(255, 255, 255));
+        btnuser.setText("Usuarios");
+        btnuser.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnuser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnShipmentActionPerformed(evt);
-            }
-        });
-
-        btnUser.setText("Usuarios");
-        btnUser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUserActionPerformed(evt);
+                btnuserActionPerformed(evt);
             }
         });
 
@@ -110,127 +132,70 @@ public class MenuView extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnReport)
-                    .addComponent(btnRol, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnUser, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnShipment, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnClient, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCity))
-                .addGap(0, 26, Short.MAX_VALUE))
+            .addComponent(btnrol, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(btnreport, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(btncity, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(btnshipment, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(btnuser, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(btnclient, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnCity)
-                .addGap(18, 18, 18)
-                .addComponent(btnClient)
-                .addGap(18, 18, 18)
-                .addComponent(btnShipment)
-                .addGap(18, 18, 18)
-                .addComponent(btnUser)
-                .addGap(18, 18, 18)
-                .addComponent(btnRol)
-                .addGap(18, 18, 18)
-                .addComponent(btnReport)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 149, Short.MAX_VALUE)
-                .addComponent(jButton7)
-                .addContainerGap())
+                .addComponent(btnuser, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnclient, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnshipment, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btncity, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnrol, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnreport, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientActionPerformed
-
-        showClientView();
-    }//GEN-LAST:event_btnClientActionPerformed
-
-    private void btnCityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCityActionPerformed
-        
-        showCityView();
-    }//GEN-LAST:event_btnCityActionPerformed
-
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-
-        showLogOutView();
-    }//GEN-LAST:event_jButton7ActionPerformed
-
-    private void btnRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRolActionPerformed
-
-        showRolView();
-    }//GEN-LAST:event_btnRolActionPerformed
-
-    private void btnReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportActionPerformed
-
-        showReportView();
-    }//GEN-LAST:event_btnReportActionPerformed
-
-    private void btnShipmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShipmentActionPerformed
-
-        showShipmentView();
-    }//GEN-LAST:event_btnShipmentActionPerformed
-
-    private void btnUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserActionPerformed
-
-        showUserView();
-    }//GEN-LAST:event_btnUserActionPerformed
-
-    private void showCityView() {
-        CityView cityview = new CityView(this, true);
-        cityview.setVisible(true);
-        cityview.setLocationByPlatform(true);
-    }
-
-    private void showClientView() {
-        ClientView clientview = new ClientView(this, true);
-        clientview.setVisible(true);
-        clientview.setLocationRelativeTo(this);
-    }
-
-    private void showShipmentView() {
-        ShipmentView shipmentview = new ShipmentView(this, true);
-        shipmentview.setVisible(true);
-        shipmentview.setLocationRelativeTo(null);
-    }
-
-    private void showUserView() {
-        UserView userview = new UserView(this, true);
-        userview.setVisible(true);
-        userview.setLocationRelativeTo(null);
-    }
-
-    private void showRolView() {
-        RolView rolview = new RolView(this, true);
+    private void btnrolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnrolActionPerformed
         rolview.setVisible(true);
-        rolview.setLocationRelativeTo(null);
-    }
+        rolview.setTableSets();
+    }//GEN-LAST:event_btnrolActionPerformed
 
-    private void showReportView() {
-        ReportView reportview = new ReportView(this, true);
+    private void btncityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncityActionPerformed
+        cityview.setVisible(true);
+        cityview.setTableSets();
+    }//GEN-LAST:event_btncityActionPerformed
+
+    private void btnshipmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnshipmentActionPerformed
+        shipmentview.setVisible(true);
+        shipmentview.setTableSets();
+    }//GEN-LAST:event_btnshipmentActionPerformed
+
+    private void btnclientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnclientActionPerformed
+        clientview.setVisible(true);
+        clientview.setTableSets();
+    }//GEN-LAST:event_btnclientActionPerformed
+
+    private void btnreportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnreportActionPerformed
         reportview.setVisible(true);
-        reportview.setLocationRelativeTo(null);
-    }
+        
+    }//GEN-LAST:event_btnreportActionPerformed
 
-    private void showLogOutView() {
-        LogOutView logoutview = new LogOutView(this, true, connectioncontroller);
-        logoutview.setVisible(true);
-        logoutview.setLocationRelativeTo(null);
-      
-    }
+    private void btnuserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnuserActionPerformed
+        userview.setVisible(true);
+        userview.setTableSets();
+    }//GEN-LAST:event_btnuserActionPerformed
+    
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCity;
-    private javax.swing.JButton btnClient;
-    private javax.swing.JButton btnReport;
-    private javax.swing.JButton btnRol;
-    private javax.swing.JButton btnShipment;
-    private javax.swing.JButton btnUser;
-    private javax.swing.JButton jButton7;
+    private javax.swing.JButton btncity;
+    private javax.swing.JButton btnclient;
+    private javax.swing.JButton btnreport;
+    private javax.swing.JButton btnrol;
+    private javax.swing.JButton btnshipment;
+    private javax.swing.JButton btnuser;
     // End of variables declaration//GEN-END:variables
 }

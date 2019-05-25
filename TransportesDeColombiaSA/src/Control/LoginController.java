@@ -5,9 +5,9 @@
  */
 package Control;
 
-import BusinessLogic.User;
+
 import Interfaces.DBconnection;
-import View.ConnectionView;
+
 
 import View.LoginView;
 import java.sql.Connection;
@@ -63,12 +63,12 @@ public class LoginController {
         statement = connection.createStatement();
         result=statement.executeQuery(sql);
         
-            System.out.println("1");
+            
         while (result.next()) {
-            System.out.println("2");
+            
             setDbusername(result.getString("username"));
             setDbpassword(result.getString("password"));
-            System.out.println("3");
+            
      }
         
                 }catch(SQLException e){

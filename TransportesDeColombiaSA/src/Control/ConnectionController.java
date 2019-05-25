@@ -6,13 +6,15 @@
 package Control;
 
 import Interfaces.DBconnection;
-import View.ConnectionView;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /**
  *
@@ -21,13 +23,11 @@ import java.util.logging.Logger;
 public class ConnectionController implements DBconnection {
 
     private Connection connection = null;
-    
-    private ConnectionView connectionview;
-    
-    public void setConnectionView (ConnectionView connectionview){
-        this.connectionview=connectionview;
-    }
-
+    private String dbname="";
+    private String jsonusername;
+    private String jsonpassword;
+    private String jsondbname;
+ 
     /**
      * Conecta la aplicación con el sistema gestor de base de datos, y captura
      * los errores que se puedan presentar durante la ejecución.
@@ -47,28 +47,31 @@ public class ConnectionController implements DBconnection {
      *
      */
     @Override
-    
-    public void connect(String dbname ) {
-    
-            
+    public void connect(String dbname) {
+
+        JSONParser jsonparser = new JSONParser();
+        try (FileReader fr = new FileReader("C:\\Users\\diegoalejo\\Documents\\NetBeansProjects\\TransportesDeColombiaSA\\src\\Control\\Credentials.json")) {
+            Object object = jsonparser.parse(fr);
+            JSONObject jsonobject = (JSONObject) object;
+            JSONObject credentials = (JSONObject) jsonobject.get("MySqlCredentials");
+            jsonusername = (String) credentials.get("Username");
+            jsonpassword = (String) credentials.get("Password");
+            jsondbname = (String) credentials.get("Dbname");
+
+        } catch (FileNotFoundException e) {
+            System.out.println("Error archivo" + e.getMessage());
+        } catch (IOException e) {
+            System.out.println("Error " + e.getMessage());
+        } catch (ParseException e) {
+            System.err.println("Error " + e.getMessage());
+        }
         try {
-
             String driver = "com.mysql.cj.jdbc.Driver";
-            String url = "jdbc:mysql://localhost:3306/"+dbname+"?&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true";
-
-            connection = DriverManager.getConnection(url,connectionview.getMysqlUser(),connectionview.getMysqlPass());
-
-            System.out.println(" conectando con la base de Datos ...");
+            String url = "jdbc:mysql://localhost:3306/" + dbname + "?&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&zeroDateTimeBehavior=CONVERT_TO_NULL";
+            connection = DriverManager.getConnection(url, jsonusername, jsonpassword);
             Class.forName(driver);
-
-            System.out.println("Conexion Exitosa");
-
         } catch (SQLException sql) {
-            System.out.println("Error de MySQL  " + sql.getMessage());
-            System.out.println("SQLState: " + sql.getSQLState());
-            System.out.println("Erro: " + sql.getErrorCode());
-            System.out.println("StackTrace: " + Arrays.toString(sql.getStackTrace()));
-
+            System.out.println("Error de MySQL p " + sql.getMessage());
         } catch (Exception e) {
             System.out.println("Error =  " + e.getMessage());
 
@@ -76,20 +79,21 @@ public class ConnectionController implements DBconnection {
 
     }
 
+    public String getJsondbname() {
+        return jsondbname;
+    }
     
     
     public Connection getConnection() {
-       
+
         return connection;
     }
 
-    
-    
+   
     public void closeConnection() {
-        
+
         try {
             connection.close();
-            System.out.println("Se ha finalizado la conexión con Mysql");
         } catch (SQLException e) {
             System.out.println(e);
         }
