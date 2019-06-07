@@ -50,7 +50,7 @@ public class ConnectionController implements DBconnection {
     public void connect(String dbname) {
 
         JSONParser jsonparser = new JSONParser();
-        try (FileReader fr = new FileReader("C:\\Users\\diegoalejo\\Documents\\NetBeansProjects\\TransportesDeColombiaSA\\src\\Control\\Credentials.json")) {
+        try (FileReader fr = new FileReader("C:\\Users\\diegoalejo\\Documents\\NetBeansProjects\\TransportesDeColombiaSA\\src\\Json\\Credentials.json")) {
             Object object = jsonparser.parse(fr);
             JSONObject jsonobject = (JSONObject) object;
             JSONObject credentials = (JSONObject) jsonobject.get("MySqlCredentials");

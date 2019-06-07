@@ -6,7 +6,7 @@
 package View;
 
 import Control.ConnectionController;
-import Control.Crud;
+import Control.CrudController;
 
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -23,7 +23,7 @@ public class MenuView extends javax.swing.JFrame {
     UserView userview;
     RolView rolview;
     ReportView reportview;
-    Crud crud;
+    CrudController crud;
     
     public MenuView() {
         initComponents();
@@ -31,7 +31,7 @@ public class MenuView extends javax.swing.JFrame {
         
     }
 
-    public void setCrud(Crud crud) {
+    public void setCrud(CrudController crud) {
         this.crud = crud;
     }
     
@@ -160,32 +160,26 @@ public class MenuView extends javax.swing.JFrame {
 
     private void btnrolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnrolActionPerformed
         rolview.setVisible(true);
-        rolview.setTableSets();
     }//GEN-LAST:event_btnrolActionPerformed
 
     private void btncityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncityActionPerformed
         cityview.setVisible(true);
-        cityview.setTableSets();
     }//GEN-LAST:event_btncityActionPerformed
 
     private void btnshipmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnshipmentActionPerformed
         shipmentview.setVisible(true);
-        shipmentview.setTableSets();
     }//GEN-LAST:event_btnshipmentActionPerformed
 
     private void btnclientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnclientActionPerformed
         clientview.setVisible(true);
-        clientview.setTableSets();
     }//GEN-LAST:event_btnclientActionPerformed
 
     private void btnreportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnreportActionPerformed
-        reportview.setVisible(true);
-        
+        reportview.setVisible(true);        
     }//GEN-LAST:event_btnreportActionPerformed
 
     private void btnuserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnuserActionPerformed
         userview.setVisible(true);
-        userview.setTableSets();
     }//GEN-LAST:event_btnuserActionPerformed
     
 

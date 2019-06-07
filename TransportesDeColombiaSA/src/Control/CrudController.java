@@ -9,25 +9,23 @@ import BusinessLogic.Create;
 import BusinessLogic.Delete;
 import BusinessLogic.Query;
 import BusinessLogic.Read;
+import BusinessLogic.Report;
 import BusinessLogic.Update;
-import com.mysql.cj.xdevapi.Result;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  *
  * @author Teban18
  */
-public class Crud {
+public class CrudController {
    
-    ConnectionController connection;
-    Query query= new Query();
-    Create create= new Create();
-    Read read= new Read();
-    Delete delete= new Delete();
-    Update update= new Update();
+    private ConnectionController connection;
+    private Query query= new Query();
+    private Create create= new Create();
+    private Read read= new Read();
+    private Delete delete= new Delete();
+    private Update update= new Update();
     public void setConnection(ConnectionController connection) {
         this.connection = connection;
     }
@@ -55,6 +53,7 @@ public class Crud {
     public void searchStatement (String table,String id_name, int value){
         query.readquery(connection, read.getSqlSentenceSearchId(table, id_name, value));
     }
+
     
     public ResultSet getresultset(){
         return query.getresultset();

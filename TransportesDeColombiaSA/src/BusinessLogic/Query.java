@@ -25,7 +25,7 @@ public class Query {
         preparedstatement = connection.getConnection().prepareStatement(sql);
         preparedstatement.executeUpdate();
         }catch(SQLException e){
-            System.out.println(e.getMessage());
+            System.out.println("sendquery"+e.getMessage());
         }
     }
     
@@ -41,10 +41,12 @@ public class Query {
         try{
         Statement s = connection.getConnection().createStatement();
         rs = s.executeQuery(sql);
-        }catch(Exception e){
-            System.out.println(e.getMessage());
+        }catch(SQLException e){
+            System.out.println("readquery "+ e.getMessage());
         }
         }
+    
+    
     
     public ResultSet getresultset(){
         return rs;

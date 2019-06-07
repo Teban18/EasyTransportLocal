@@ -5,18 +5,10 @@
  */
 package View;
 
-import Control.Crud;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import Control.CrudController;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -28,7 +20,7 @@ public class CityView extends javax.swing.JFrame {
     private DefaultTableModel model;
     private ArrayList<String> columns = new ArrayList<String>();
     private ArrayList<String> values;
-    private Crud crud;
+    private CrudController crud;
     private String cityname = "city";
     private String cityid = "city_id";
 
@@ -38,10 +30,20 @@ public class CityView extends javax.swing.JFrame {
         columns.add("state");
         columns.add("department");
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-
+        showdefaultbtnvalues(false);
     }
 
-    public void setCrud(Crud crud) {
+    private void showdefaultbtnvalues(boolean status) {
+        boolean insertstatus = true;
+        if (status) {
+            insertstatus = false;
+        }
+        btnDelete.setVisible(status);
+        btnupdate.setVisible(status);
+        btninsert.setVisible(insertstatus);
+    }
+    
+    public void setCrud(CrudController crud) {
         this.crud = crud;
     }
 
@@ -66,6 +68,16 @@ public class CityView extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         btninsert.setText("Agregar");
         btninsert.addActionListener(new java.awt.event.ActionListener() {
@@ -198,7 +210,7 @@ public class CityView extends javax.swing.JFrame {
         try {
             if (citytable.getSelectedRow() != -1) {
                 int i = citytable.getSelectedRow();
-                int idvalue = (int) citytable.getValueAt(i, 0);
+                int idvalue = (int) citytable.getModel().getValueAt(i, 0);
                 ArrayList<String> thisvalues = new ArrayList<String>();
                 thisvalues.add(txtname.getText());
                 thisvalues.add(txtstate.getText());
@@ -206,6 +218,7 @@ public class CityView extends javax.swing.JFrame {
                 crud.updatestatement(cityname, columns, thisvalues, cityid, idvalue);
                 setTableSets();
                 clearTxt();
+                showdefaultbtnvalues(false);
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -232,10 +245,11 @@ public class CityView extends javax.swing.JFrame {
         try {
             if (citytable.getSelectedRow() != -1) {
                 int i = citytable.getSelectedRow();
-                int idvalue = (int) citytable.getValueAt(i, 0);
+                int idvalue = (int) citytable.getModel().getValueAt(i, 0);
                 crud.deletestatement(cityname, cityid, idvalue);
                 setTableSets();
                 clearTxt();
+                showdefaultbtnvalues(false);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Seleccione el registro que desea eliminar");
@@ -244,16 +258,69 @@ public class CityView extends javax.swing.JFrame {
 
     private void citytableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_citytableMouseClicked
         int i = citytable.getSelectedRow();
-        txtname.setText((String) citytable.getValueAt(i, 1));
-        txtstate.setText((String) citytable.getValueAt(i, 2));
-        txtdepartment.setText((String) citytable.getValueAt(i, 4));
+        txtname.setText((String) citytable.getModel().getValueAt(i, 1));
+        txtstate.setText((String) citytable.getModel().getValueAt(i, 2));
+        txtdepartment.setText((String) citytable.getModel().getValueAt(i, 4));
+        if(i!=-1){
+            showdefaultbtnvalues(true);
+        }
     }//GEN-LAST:event_citytableMouseClicked
 
     private void btnReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReadActionPerformed
+      searchRow();
+    }//GEN-LAST:event_btnReadActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        clearTxt();
+    }//GEN-LAST:event_formWindowClosed
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        clearSelection();
+        showdefaultbtnvalues(false);
+        clearTxt();
+        setTableSets();
+    }//GEN-LAST:event_formMouseClicked
+
+    public void setTableSets() {
+
+        try {
+            model = new DefaultTableModel();
+            model.addColumn("id");
+            model.addColumn("Nombre");
+            model.addColumn("Estado");
+            model.addColumn("FechaDeCreacion");
+            model.addColumn("Departamento");
+            crud.readstatement(cityname);
+            while (crud.getresultset().next()) {
+                Object[] row = new Object[5];
+                for (int i = 0; i < row.length; i++) {
+                    row[i] = crud.getresultset().getObject(i + 1);
+                }
+                model.addRow(row);
+            }  
+            this.citytable.setModel(model); 
+            this.citytable.removeColumn(this.citytable.getColumnModel().getColumn(0));
+        } catch (SQLException ex) {
+
+        }
+    }
+
+    private void clearTxt(){
+        txtname.setText("");
+        txtstate.setText("");
+        txtdepartment.setText("");
+        txtsearch.setText("");
+    }
+    
+    public void clearSelection() {
+        citytable.clearSelection();
+        citytable.getSelectionModel().clearSelection();
+    }
+    
+    private void searchRow(){
         try{
             String thisidvalue=txtsearch.getText();
             int integeridvalue=Integer.parseInt(thisidvalue);
-            try {
             model = new DefaultTableModel();
             model.addColumn("ID");
             model.addColumn("Nombre");
@@ -269,43 +336,11 @@ public class CityView extends javax.swing.JFrame {
                 model.addRow(row);
             }
             this.citytable.setModel(model);
+            this.citytable.removeColumn(this.citytable.getColumnModel().getColumn(0));
             clearTxt();
         } catch (SQLException ex) {
 
         }
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "No existe un registro con ese ID");
-        }
-    }//GEN-LAST:event_btnReadActionPerformed
-
-    public void setTableSets() {
-
-        try {
-            model = new DefaultTableModel();
-            model.addColumn("ID");
-            model.addColumn("Nombre");
-            model.addColumn("Estado");
-            model.addColumn("FechaDeCreacion");
-            model.addColumn("Departamento");
-            crud.readstatement(cityname);
-            while (crud.getresultset().next()) {
-                Object[] row = new Object[5];
-                for (int i = 0; i < row.length; i++) {
-                    row[i] = crud.getresultset().getObject(i + 1);
-                }
-                model.addRow(row);
-            }
-            this.citytable.setModel(model);
-        } catch (SQLException ex) {
-
-        }
-    }
-
-    private void clearTxt(){
-        txtname.setText("");
-        txtstate.setText("");
-        txtdepartment.setText("");
-        txtsearch.setText("");
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

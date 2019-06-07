@@ -5,7 +5,7 @@
  */
 package View;
 
-import Control.Crud;
+import Control.CrudController;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -20,7 +20,7 @@ public class UserView extends javax.swing.JFrame {
     private DefaultTableModel model;
     private ArrayList<String> columns = new ArrayList<String>();
     private ArrayList<String> values;
-    private Crud crud;
+    private CrudController crud;
     private String username = "user";
     private String userid = "user_id";
 
@@ -35,9 +35,21 @@ public class UserView extends javax.swing.JFrame {
         columns.add("rol");
         columns.add("state");
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        showdefaultbtnvalues(false);
     }
 
-    public void setCrud(Crud crud) {
+     private void showdefaultbtnvalues(boolean status) {
+        boolean insertstatus = true;
+        if (status) {
+            insertstatus = false;
+        }
+        btndelete.setVisible(status);
+        btnupdate.setVisible(status);
+        btninsert.setVisible(insertstatus);
+    }
+    
+    
+    public void setCrud(CrudController crud) {
         this.crud = crud;
     }
 
@@ -72,6 +84,16 @@ public class UserView extends javax.swing.JFrame {
         btnupdate = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         btninsert.setText("Agregar");
         btninsert.addActionListener(new java.awt.event.ActionListener() {
@@ -277,44 +299,14 @@ public class UserView extends javax.swing.JFrame {
     }//GEN-LAST:event_btninsertActionPerformed
 
     private void btnreadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnreadActionPerformed
-        try {
-            String thisidvalue = txtsearch.getText();
-            int integeridvalue = Integer.parseInt(thisidvalue);
-            try {
-                model = new DefaultTableModel();
-                model.addColumn("ID");
-                model.addColumn("Identificación");
-                model.addColumn("Nombres");
-                model.addColumn("Apellidos");
-                model.addColumn("Username");
-                model.addColumn("Password");
-                model.addColumn("FechaDeCreacion");
-                model.addColumn("Telefono");
-                model.addColumn("Rol");
-                model.addColumn("Estado");
-                crud.searchStatement(username, userid, integeridvalue);
-                while (crud.getresultset().next()) {
-                    Object[] row = new Object[10];
-                    for (int i = 0; i <row.length; i++) {
-                        row[i] = crud.getresultset().getObject(i + 1);
-                    }
-                    model.addRow(row);
-                }
-                this.usertable.setModel(model);
-                cleartxt();
-            } catch (SQLException ex) {
-
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "No existe un registro con ese ID");
-        }
+        searchRow();
     }//GEN-LAST:event_btnreadActionPerformed
 
     private void btnupdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnupdateActionPerformed
         try {
             if (usertable.getSelectedRow() != -1) {
                 int i = usertable.getSelectedRow();
-                int idvalue = (int) usertable.getValueAt(i, 0);
+                int idvalue = (int) usertable.getModel().getValueAt(i, 0);
                 ArrayList<String> thisvalues = new ArrayList<String>();
                 thisvalues.add(txtidentification.getText());
                 thisvalues.add(txtfname.getText());
@@ -327,6 +319,7 @@ public class UserView extends javax.swing.JFrame {
                 crud.updatestatement(username, columns, thisvalues, userid, idvalue);
                 setTableSets();
                 cleartxt();
+                showdefaultbtnvalues(false);
             }
         } catch (Exception e) {
             System.out.println("Error");
@@ -334,29 +327,48 @@ public class UserView extends javax.swing.JFrame {
 
     private void usertableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usertableMouseClicked
         int i = usertable.getSelectedRow();
-        txtidentification.setText((String) usertable.getValueAt(i, 1));
-        txtfname.setText((String) usertable.getValueAt(i, 2));
-        txtlname.setText((String) usertable.getValueAt(i, 3));
-        txtusername.setText((String) usertable.getValueAt(i, 4));
-        txtpassword.setText((String) usertable.getValueAt(i, 5));
-        txtphone.setText((String) usertable.getValueAt(i, 7));
-        txtrol.setText((String) usertable.getValueAt(i, 8));
+        if (i != -1) {
+            showdefaultbtnvalues(true);
+        }
+        txtidentification.setText((String) usertable.getModel().getValueAt(i, 1));
+        txtfname.setText((String) usertable.getModel().getValueAt(i, 2));
+        txtlname.setText((String) usertable.getModel().getValueAt(i, 3));
+        txtusername.setText((String) usertable.getModel().getValueAt(i, 4));
+        txtpassword.setText((String) usertable.getModel().getValueAt(i, 5));
+        txtphone.setText((String) usertable.getModel().getValueAt(i, 7));        
+        txtrol.setText((String) usertable.getModel().getValueAt(i, 8));   
+        /*
         txtstate.setText((String) usertable.getValueAt(i, 9));    }//GEN-LAST:event_usertableMouseClicked
-
+*/
+        txtstate.setText((String) usertable.getModel().getValueAt(i, 9));  
+    }
     private void btndeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndeleteActionPerformed
         try {
             if (usertable.getSelectedRow() != -1) {
                 int i = usertable.getSelectedRow();
-                int idvalue = (int) usertable.getValueAt(i, 0);
+                int idvalue = (int) usertable.getModel().getValueAt(i, 0);
                 crud.deletestatement(username, userid, idvalue);
                 setTableSets();
                 cleartxt();
+                showdefaultbtnvalues(false);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Seleccione el registro que desea eliminar");
         }
     }//GEN-LAST:event_btndeleteActionPerformed
 
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        cleartxt();
+    }//GEN-LAST:event_formWindowClosed
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        clearSelection();
+        showdefaultbtnvalues(false);
+        cleartxt();
+        setTableSets();
+    }//GEN-LAST:event_formMouseClicked
+
+    
     private void cleartxt() {
         txtidentification.setText("");
         txtfname.setText("");
@@ -392,10 +404,47 @@ public class UserView extends javax.swing.JFrame {
                 model.addRow(row);
             }
             this.usertable.setModel(model);
+            this.usertable.removeColumn(this.usertable.getColumnModel().getColumn(0));
         } catch (SQLException ex) {
 
         }
     }
+    
+     public void clearSelection() {
+        usertable.clearSelection();
+        usertable.getSelectionModel().clearSelection();
+    }
+     
+     private void searchRow(){
+          try {
+            String thisidvalue = txtsearch.getText();
+            int integeridvalue = Integer.parseInt(thisidvalue);
+                model = new DefaultTableModel();
+                model.addColumn("ID");
+                model.addColumn("Identificación");
+                model.addColumn("Nombres");
+                model.addColumn("Apellidos");
+                model.addColumn("Username");
+                model.addColumn("Password");
+                model.addColumn("FechaDeCreacion");
+                model.addColumn("Telefono");
+                model.addColumn("Rol");
+                model.addColumn("Estado");
+                crud.searchStatement(username, userid, integeridvalue);
+                while (crud.getresultset().next()) {
+                    Object[] row = new Object[10];
+                    for (int i = 0; i <row.length; i++) {
+                        row[i] = crud.getresultset().getObject(i + 1);
+                    }
+                    model.addRow(row);
+                }
+                this.usertable.setModel(model);
+                this.usertable.removeColumn(this.usertable.getColumnModel().getColumn(0));
+                cleartxt();
+            } catch (SQLException ex) {
+
+            }
+     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btndelete;

@@ -5,11 +5,13 @@
  */
 package View;
 
-import Control.Crud;
+import Control.CrudController;
+import java.sql.Array;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
 
 /**
  *
@@ -19,7 +21,7 @@ public class ClientView extends javax.swing.JFrame {
     private DefaultTableModel model;
     private ArrayList<String> columns = new ArrayList<String>();
     private ArrayList<String> values;
-    private Crud crud;
+    private CrudController crud;
     private String clientname = "client";
     private String clientid = "client_id";
     public ClientView() {
@@ -32,10 +34,31 @@ public class ClientView extends javax.swing.JFrame {
         columns.add("address_client");
         columns.add("city_client");
         columns.add("created_by");
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE); 
+        showdefaultbtnvalues(false);
     }
 
-    public void setCrud(Crud crud) {
+    public String getClientName(){
+        return clientname;
+    }
+
+    public ArrayList<String> getColumns() {
+        return columns;
+    }
+  
+    
+    
+      private void showdefaultbtnvalues(boolean status){
+       boolean insertstatus= true;
+        if(status){
+           insertstatus= false;
+       }
+         btndelete.setVisible(status);
+         btnupdate.setVisible(status);
+         btninsert.setVisible(insertstatus);
+    }
+    
+    public void setCrud(CrudController crud) {
         this.crud = crud;
     }
     
@@ -69,6 +92,16 @@ public class ClientView extends javax.swing.JFrame {
         txtidentification = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jLabel6.setText("Birth_Date");
 
@@ -138,51 +171,60 @@ public class ClientView extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(34, 34, 34)
-                                .addComponent(jScrollPane1))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(46, 46, 46)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtidentification, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtbdate, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtbdate, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
                                 .addGap(73, 73, 73)
+                                .addComponent(jLabel6)))
+                        .addGap(73, 73, 73)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(txtphone, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(58, 58, 58)
-                                        .addComponent(txtaddress, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(58, 58, 58))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txtfname, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(58, 58, 58)
-                                        .addComponent(txtlname, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(jLabel7)
+                                        .addGap(99, 99, 99)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtaddress, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(jLabel8)
+                                        .addGap(29, 29, 29))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtfname, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(58, 58, 58)
+                                .addComponent(txtlname, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(29, 29, 29)
+                                .addComponent(txtsearch, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtcity, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(35, 35, 35)
+                                        .addComponent(jLabel9)))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel2)
-                                        .addGap(29, 29, 29)
-                                        .addComponent(txtsearch, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(69, 69, 69)
-                                        .addComponent(txtcity, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(txtcreatedby, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(42, 42, 42))
+                                        .addGap(34, 34, 34)
+                                        .addComponent(txtcreatedby, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel10)
+                                        .addGap(19, 19, 19))))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(73, 73, 73)
-                        .addComponent(jLabel6)
-                        .addGap(133, 133, 133)
-                        .addComponent(jLabel7)
-                        .addGap(131, 131, 131)
-                        .addComponent(jLabel8)
-                        .addGap(132, 132, 132)
-                        .addComponent(jLabel9)
-                        .addGap(104, 104, 104)
-                        .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addContainerGap()
+                        .addComponent(jScrollPane1)))
+                .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btninsert, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
                     .addComponent(btnread, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -221,29 +263,33 @@ public class ClientView extends javax.swing.JFrame {
                     .addComponent(txtidentification, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtfname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtlname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel10))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(btninsert))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btninsert)
-                            .addComponent(txtphone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel10))
+                        .addGap(27, 27, 27)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtbdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtphone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtaddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtcity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtcreatedby, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(43, 43, 43)
+                            .addComponent(txtcreatedby, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnupdate)
-                        .addGap(28, 28, 28)
+                        .addGap(43, 43, 43)
                         .addComponent(btndelete))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(19, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(49, 49, 49))
         );
 
         pack();
@@ -272,7 +318,7 @@ try {
         try {
             if (clienttable.getSelectedRow() != -1) {
                 int i = clienttable.getSelectedRow();
-                int idvalue = (int) clienttable.getValueAt(i, 0);
+                int idvalue = (int) clienttable.getModel().getValueAt(i, 0);
                 ArrayList<String> thisvalues = new ArrayList<String>();
                 thisvalues.add(txtidentification.getText());
                 thisvalues.add(txtfname.getText());
@@ -285,9 +331,10 @@ try {
                 crud.updatestatement(clientname, columns, thisvalues, clientid, idvalue);
                 setTableSets();
                 cleartxt();
+                showdefaultbtnvalues(false);
             }
         } catch (Exception e) {
-            System.out.println("Error");
+            System.out.println("Error"+e.getMessage());
         }
     }//GEN-LAST:event_btnupdateActionPerformed
 
@@ -295,61 +342,46 @@ try {
         try {
             if (clienttable.getSelectedRow() != -1) {
                 int i = clienttable.getSelectedRow();
-                int idvalue = (int) clienttable.getValueAt(i, 0);
+                int idvalue = (int) clienttable.getModel().getValueAt(i, 0);
                 crud.deletestatement(clientname, clientid, idvalue);
                 setTableSets();
                 cleartxt();
+                showdefaultbtnvalues(false);
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Seleccione el registro que desea eliminar");
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }//GEN-LAST:event_btndeleteActionPerformed
 
     private void btnreadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnreadActionPerformed
-        try {
-            String thisidvalue = txtsearch.getText();
-            int integeridvalue = Integer.parseInt(thisidvalue);
-            try {
-                model = new DefaultTableModel();
-                model.addColumn("ID");
-                model.addColumn("Identificación");
-                model.addColumn("Nombres");
-                model.addColumn("Apellidos");
-                model.addColumn("FechaDeCreacion");
-                model.addColumn("FechaNacimiento");
-                model.addColumn("Telefono");                
-                model.addColumn("Direccion");
-                model.addColumn("Ciudad");
-                model.addColumn("CreadoPor");
-                crud.searchStatement(clientname, clientid, integeridvalue);
-                while (crud.getresultset().next()) {
-                    Object[] row = new Object[10];
-                    for (int i = 0; i <row.length; i++) {
-                        row[i] = crud.getresultset().getObject(i + 1);
-                    }
-                    model.addRow(row);
-                }
-                this.clienttable.setModel(model);
-                cleartxt();
-            } catch (SQLException ex) {
-
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "No existe un registro con ese ID");
-        }
+       searchrow();
     }//GEN-LAST:event_btnreadActionPerformed
 
     private void clienttableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clienttableMouseClicked
         int i = clienttable.getSelectedRow();
         txtidentification.setText((String) clienttable.getValueAt(i, 1));
-        txtfname.setText((String) clienttable.getValueAt(i, 2));
-        txtlname.setText((String) clienttable.getValueAt(i, 3));
-        txtbdate.setText((String) clienttable.getValueAt(i, 5));
-        txtphone.setText((String) clienttable.getValueAt(i, 6));
-        txtaddress.setText((String) clienttable.getValueAt(i, 7));
-        txtcity.setText((String) clienttable.getValueAt(i, 8));
-        txtcreatedby.setText((String) clienttable.getValueAt(i, 9));
+        txtfname.setText((String) clienttable.getModel().getValueAt(i, 2));
+        txtlname.setText((String) clienttable.getModel().getValueAt(i, 3));
+        txtbdate.setText((String) clienttable.getModel().getValueAt(i, 5));
+        txtphone.setText((String) clienttable.getModel().getValueAt(i, 6));
+        txtaddress.setText((String) clienttable.getModel().getValueAt(i, 7));
+        txtcity.setText((String) clienttable.getModel().getValueAt(i, 8));
+        txtcreatedby.setText((String) clienttable.getModel().getValueAt(i, 9));
+        if(i!=-1){
+            showdefaultbtnvalues(true);
+        }  
     }//GEN-LAST:event_clienttableMouseClicked
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        cleartxt();
+    }//GEN-LAST:event_formWindowClosed
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        clearSelection();
+        showdefaultbtnvalues(false);
+        cleartxt();
+        setTableSets();
+    }//GEN-LAST:event_formMouseClicked
  
      private void cleartxt() {
         txtidentification.setText("");
@@ -384,13 +416,48 @@ try {
                 }
                 model.addRow(row);
             }
-            this.clienttable.setModel(model);
+            clienttable.setModel(model);
+            this.clienttable.removeColumn(this.clienttable.getColumnModel().getColumn(0));
         } catch (SQLException ex) {
 
         }
     }
     
+    public void clearSelection() {
+        clienttable.clearSelection();
+        clienttable.getSelectionModel().clearSelection();
+    }
     
+    private void searchrow(){
+         try {
+            String thisidvalue = txtsearch.getText();
+            int integeridvalue = Integer.parseInt(thisidvalue);
+                model = new DefaultTableModel();
+                model.addColumn("ID");
+                model.addColumn("Identificación");
+                model.addColumn("Nombres");
+                model.addColumn("Apellidos");
+                model.addColumn("FechaDeCreacion");
+                model.addColumn("FechaNacimiento");
+                model.addColumn("Telefono");                
+                model.addColumn("Direccion");
+                model.addColumn("Ciudad");
+                model.addColumn("CreadoPor");
+                crud.searchStatement(clientname, clientid, integeridvalue);
+                while (crud.getresultset().next()) {
+                    Object[] row = new Object[10];
+                    for (int i = 0; i <row.length; i++) {
+                        row[i] = crud.getresultset().getObject(i + 1);
+                    }
+                    model.addRow(row);
+                }
+                clienttable.setModel(model);
+                this.clienttable.removeColumn(this.clienttable.getColumnModel().getColumn(0));
+                cleartxt();
+            } catch (SQLException ex) {
+
+            }
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btndelete;

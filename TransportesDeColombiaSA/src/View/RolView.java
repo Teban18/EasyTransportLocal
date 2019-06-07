@@ -5,7 +5,7 @@
  */
 package View;
 
-import Control.Crud;
+import Control.CrudController;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -19,7 +19,7 @@ public class RolView extends javax.swing.JFrame {
     private DefaultTableModel model;
     private ArrayList<String> columns = new ArrayList<String>();
     private ArrayList<String> values;
-    private Crud crud;
+    private CrudController crud;
     private String rolname = "rol";
     private String rolid = "rol_id";
   
@@ -28,9 +28,20 @@ public class RolView extends javax.swing.JFrame {
         columns.add("rol_name");
         columns.add("state");
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+         showdefaultbtnvalues(false);
     }
 
-    public void setCrud(Crud crud) {
+    private void showdefaultbtnvalues(boolean status){
+       boolean insertstatus= true;
+        if(status){
+           insertstatus= false;
+       }
+        btnDelete.setVisible(status);
+         btnupdate.setVisible(status);
+         btninsert.setVisible(insertstatus);
+    }
+    
+    public void setCrud(CrudController crud) {
         this.crud = crud;
     }
     
@@ -38,6 +49,8 @@ public class RolView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -52,7 +65,21 @@ public class RolView extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         btnDelete = new javax.swing.JButton();
 
+        jButton1.setText("jButton1");
+
+        jButton2.setText("jButton2");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jLabel4.setText("Estado");
 
@@ -176,37 +203,15 @@ public class RolView extends javax.swing.JFrame {
 
     private void roltableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_roltableMouseClicked
         int i = roltable.getSelectedRow();
-        txtname.setText((String) roltable.getValueAt(i, 1));
-        txtstate.setText((String) roltable.getValueAt(i, 2));
-       
+        txtname.setText((String) roltable.getModel().getValueAt(i, 1));
+        txtstate.setText((String) roltable.getModel().getValueAt(i, 2));  
+        if(i!=-1){
+            showdefaultbtnvalues(true);
+        }       
     }//GEN-LAST:event_roltableMouseClicked
 
     private void btnReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReadActionPerformed
-        try{
-            String thisidvalue=txtsearch.getText();
-            int integeridvalue=Integer.parseInt(thisidvalue);
-            try {
-                model = new DefaultTableModel();
-                model.addColumn("ID");
-                model.addColumn("Nombre");
-                model.addColumn("Estado");
-                model.addColumn("FechaDeCreacion");
-                crud.searchStatement(rolname,rolid,integeridvalue );
-                while (crud.getresultset().next()) {
-                    Object[] row = new Object[4];
-                    for (int i = 0; i < row.length; i++) {
-                        row[i] = crud.getresultset().getObject(i + 1);
-                    }
-                    model.addRow(row);
-                }
-                this.roltable.setModel(model);
-                clearTxt();
-            } catch (SQLException ex) {
-
-            }
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "No existe un registro con ese ID");
-        }
+      searchrow();
     }//GEN-LAST:event_btnReadActionPerformed
 
     private void btninsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btninsertActionPerformed
@@ -226,13 +231,14 @@ public class RolView extends javax.swing.JFrame {
         try {
             if (roltable.getSelectedRow() != -1) {
                 int i = roltable.getSelectedRow();
-                int idvalue = (int) roltable.getValueAt(i, 0);
+                int idvalue = (int) roltable.getModel().getValueAt(i, 0);
                 ArrayList<String> thisvalues = new ArrayList<String>();
                 thisvalues.add(txtname.getText());
                 thisvalues.add(txtstate.getText());
                 crud.updatestatement(rolname, columns, thisvalues, rolid, idvalue);
                 setTableSets();
                 clearTxt();
+                showdefaultbtnvalues(false);
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -243,15 +249,27 @@ public class RolView extends javax.swing.JFrame {
         try {
             if (roltable.getSelectedRow() != -1) {
                 int i = roltable.getSelectedRow();
-                int idvalue = (int) roltable.getValueAt(i, 0);
+                int idvalue = (int) roltable.getModel().getValueAt(i, 0);
                 crud.deletestatement(rolname, rolid, idvalue);
                 setTableSets();
                 clearTxt();
+                showdefaultbtnvalues(false);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Seleccione el registro que desea eliminar");
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        clearTxt();
+    }//GEN-LAST:event_formWindowClosed
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        clearSelection();
+        showdefaultbtnvalues(false);
+        clearTxt();
+        setTableSets();
+    }//GEN-LAST:event_formMouseClicked
 
      public void setTableSets() {
 
@@ -270,6 +288,7 @@ public class RolView extends javax.swing.JFrame {
                 model.addRow(row);
             }
             this.roltable.setModel(model);
+            this.roltable.removeColumn(this.roltable.getColumnModel().getColumn(0));
         } catch (SQLException ex) {
 
         }
@@ -281,12 +300,44 @@ public class RolView extends javax.swing.JFrame {
         txtsearch.setText("");
     }
     
+    public void clearSelection() {
+        roltable.clearSelection();
+        roltable.getSelectionModel().clearSelection();
+    }
+
+    
+    private void searchrow(){
+        try{
+            String thisidvalue=txtsearch.getText();
+            int integeridvalue=Integer.parseInt(thisidvalue);
+                model = new DefaultTableModel();
+                model.addColumn("ID");
+                model.addColumn("Nombre");
+                model.addColumn("Estado");
+                model.addColumn("FechaDeCreacion");
+                crud.searchStatement(rolname,rolid,integeridvalue );
+                while (crud.getresultset().next()) {
+                    Object[] row = new Object[4];
+                    for (int i = 0; i < row.length; i++) {
+                        row[i] = crud.getresultset().getObject(i + 1);
+                    }
+                    model.addRow(row);
+                }
+                this.roltable.setModel(model);
+                this.roltable.removeColumn(this.roltable.getColumnModel().getColumn(0));
+                clearTxt();
+            } catch (SQLException ex) {
+
+            }
+    }
  
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDelete;
     private javax.swing.JToggleButton btnRead;
     private javax.swing.JButton btninsert;
     private javax.swing.JButton btnupdate;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

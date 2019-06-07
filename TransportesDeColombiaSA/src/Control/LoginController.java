@@ -34,7 +34,6 @@ public class LoginController {
     
     
     private ConnectionController connection;
-    private LoginView loginview;
     public Statement statement;
     public ResultSet result;
     private String dbusername;
@@ -45,12 +44,7 @@ public class LoginController {
         this.connection = connection;
     }
 
-    public void setLoginview(LoginView loginview) {
-        this.loginview = loginview;
-    }
-   
-    
-   
+
     public void login(String username,String password){
         
         

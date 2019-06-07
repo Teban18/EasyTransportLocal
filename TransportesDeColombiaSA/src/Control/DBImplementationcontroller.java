@@ -5,10 +5,8 @@
  */
 package Control;
 
-import com.mysql.cj.MysqlConnection;
-import java.sql.Connection;
+
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -61,7 +59,7 @@ public class DBImplementationcontroller {
             sentence.close();
 
             sentence = connection.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS shipment(shipment_id int NOT NULL AUTO_INCREMENT PRIMARY KEY, shipment_price varchar(20) NOT NULL, origin_city varchar (50) NOT NULL, destiny_city varchar (50) NOT NULL,"
-                    + "remitter varchar(50) NOT NULL, addressee varchar(50) NOT NULL ,state varchar(45) NOT NULL ,delivered_by varchar(45) NOT NULL,create_shipment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, delivered_shipment_date varchar(50) )");
+                    + "remitter varchar(50) NOT NULL, addressee varchar(50) NOT NULL ,state varchar(45) NOT NULL ,delivered_by varchar(45) NOT NULL,create_shipment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, delivered_shipment_date varchar(50), description varchar(300))");
             sentence.executeUpdate();
             sentence.close();
            
