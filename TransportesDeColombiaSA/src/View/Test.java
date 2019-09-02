@@ -5,13 +5,12 @@
  */
 package View;
 
-import Control.ConnectionController;
-import Control.CrudController;
-
-import Control.DBImplementationcontroller;
-import Control.LoginController;
-import Control.PathController;
-import Control.ReportController;
+import Controllers.ConnectionController;
+import Controllers.CrudController;
+import Controllers.DBImplementationcontroller;
+import Controllers.LoginController;
+import Controllers.PathController;
+import Controllers.ReportController;
 import java.sql.Connection;
 
 /**
@@ -29,7 +28,7 @@ public class Test {
         ReportController reportcontroller= new ReportController();
         PathController path= new PathController();
 
-        
+
         //Control de conexion con la base de datos en todos los procesos de controladores
         connection.connect("");
         DBimplementation.setConnection(connection);
@@ -38,7 +37,7 @@ public class Test {
         crud.setConnection(connection);
         path.connectJsonReportFile();
         reportcontroller.setConnection(connection);
-        
+
         //Creacion objetos de vistas
         LoginView loginview = new LoginView();
         MenuView menuview = new MenuView();
@@ -49,26 +48,26 @@ public class Test {
         RolView rolview=new RolView();
         ReportView reportview = new ReportView();
 
-        
+
         //Relacion vistas-controladores
         loginview.setLogincontroller(logincontroller);
-        cityview.setCrud(crud);        
+        cityview.setCrud(crud);
         userview.setCrud(crud);
         clientview.setCrud(crud);
         shipmentview.setCrud(crud);
         rolview.setCrud(crud);
         reportview.setReportController(reportcontroller);
         reportview.setPath(path);
-        
-        
+
+
         //Inicializando datos de las vistas
         cityview.setTableSets();
         userview.setTableSets();
         clientview.setTableSets();
         shipmentview.setTableSets();
         rolview.setTableSets();
-  
-        
+
+
         //Relacion entre las vistas
         loginview.setMenuView(menuview);
         menuview.setCityview(cityview);
@@ -79,8 +78,8 @@ public class Test {
         menuview.setReportview(reportview);
         reportview.setClientview(clientview);
         reportview.setShipmentview(shipmentview);
- 
-        
+
+
         //Inicializacion del proceso
         loginview.setVisible(true);
         loginview.setLocationRelativeTo(null);

@@ -5,7 +5,7 @@
  */
 package View;
 
-import Control.CrudController;
+import Controllers.CrudController;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -38,7 +38,7 @@ public class UserView extends javax.swing.JFrame {
         showdefaultbtnvalues(false);
     }
 
-     private void showdefaultbtnvalues(boolean status) {
+    private void showdefaultbtnvalues(boolean status) {
         boolean insertstatus = true;
         if (status) {
             insertstatus = false;
@@ -47,13 +47,12 @@ public class UserView extends javax.swing.JFrame {
         btnupdate.setVisible(status);
         btninsert.setVisible(insertstatus);
     }
-    
-    
+
     public void setCrud(CrudController crud) {
         this.crud = crud;
     }
 
-   
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -290,7 +289,11 @@ public class UserView extends javax.swing.JFrame {
             values.add(txtphone.getText());
             values.add(txtrol.getText());
             values.add(txtstate.getText());
-            crud.createstatement(username, columns, values);
+            if (!txtusername.getText().isEmpty() && !txtpassword.getText().isEmpty()) {
+                crud.createstatement(username, columns, values);
+            } else {
+                JOptionPane.showMessageDialog(null, "Campos username o password nulos");
+            }
             setTableSets();
             cleartxt();
         } catch (Exception e) {
@@ -316,7 +319,11 @@ public class UserView extends javax.swing.JFrame {
                 thisvalues.add(txtphone.getText());
                 thisvalues.add(txtrol.getText());
                 thisvalues.add(txtstate.getText());
-                crud.updatestatement(username, columns, thisvalues, userid, idvalue);
+                if (!txtusername.getText().isEmpty() && !txtpassword.getText().isEmpty()) {
+                    crud.updatestatement(username, columns, thisvalues, userid, idvalue);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Campos username o password nulos");
+                }
                 setTableSets();
                 cleartxt();
                 showdefaultbtnvalues(false);
@@ -335,12 +342,12 @@ public class UserView extends javax.swing.JFrame {
         txtlname.setText((String) usertable.getModel().getValueAt(i, 3));
         txtusername.setText((String) usertable.getModel().getValueAt(i, 4));
         txtpassword.setText((String) usertable.getModel().getValueAt(i, 5));
-        txtphone.setText((String) usertable.getModel().getValueAt(i, 7));        
-        txtrol.setText((String) usertable.getModel().getValueAt(i, 8));   
+        txtphone.setText((String) usertable.getModel().getValueAt(i, 7));
+        txtrol.setText((String) usertable.getModel().getValueAt(i, 8));
         /*
         txtstate.setText((String) usertable.getValueAt(i, 9));    }//GEN-LAST:event_usertableMouseClicked
 */
-        txtstate.setText((String) usertable.getModel().getValueAt(i, 9));  
+        txtstate.setText((String) usertable.getModel().getValueAt(i, 9));
     }
     private void btndeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndeleteActionPerformed
         try {
@@ -368,7 +375,6 @@ public class UserView extends javax.swing.JFrame {
         setTableSets();
     }//GEN-LAST:event_formMouseClicked
 
-    
     private void cleartxt() {
         txtidentification.setText("");
         txtfname.setText("");
@@ -409,42 +415,42 @@ public class UserView extends javax.swing.JFrame {
 
         }
     }
-    
-     public void clearSelection() {
+
+    public void clearSelection() {
         usertable.clearSelection();
         usertable.getSelectionModel().clearSelection();
     }
-     
-     private void searchRow(){
-          try {
+
+    private void searchRow() {
+        try {
             String thisidvalue = txtsearch.getText();
             int integeridvalue = Integer.parseInt(thisidvalue);
-                model = new DefaultTableModel();
-                model.addColumn("ID");
-                model.addColumn("Identificación");
-                model.addColumn("Nombres");
-                model.addColumn("Apellidos");
-                model.addColumn("Username");
-                model.addColumn("Password");
-                model.addColumn("FechaDeCreacion");
-                model.addColumn("Telefono");
-                model.addColumn("Rol");
-                model.addColumn("Estado");
-                crud.searchStatement(username, userid, integeridvalue);
-                while (crud.getresultset().next()) {
-                    Object[] row = new Object[10];
-                    for (int i = 0; i <row.length; i++) {
-                        row[i] = crud.getresultset().getObject(i + 1);
-                    }
-                    model.addRow(row);
+            model = new DefaultTableModel();
+            model.addColumn("ID");
+            model.addColumn("Identificación");
+            model.addColumn("Nombres");
+            model.addColumn("Apellidos");
+            model.addColumn("Username");
+            model.addColumn("Password");
+            model.addColumn("FechaDeCreacion");
+            model.addColumn("Telefono");
+            model.addColumn("Rol");
+            model.addColumn("Estado");
+            crud.searchStatement(username, userid, integeridvalue);
+            while (crud.getresultset().next()) {
+                Object[] row = new Object[10];
+                for (int i = 0; i < row.length; i++) {
+                    row[i] = crud.getresultset().getObject(i + 1);
                 }
-                this.usertable.setModel(model);
-                this.usertable.removeColumn(this.usertable.getColumnModel().getColumn(0));
-                cleartxt();
-            } catch (SQLException ex) {
-
+                model.addRow(row);
             }
-     }
+            this.usertable.setModel(model);
+            this.usertable.removeColumn(this.usertable.getColumnModel().getColumn(0));
+            cleartxt();
+        } catch (SQLException ex) {
+
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btndelete;

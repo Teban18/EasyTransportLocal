@@ -5,8 +5,8 @@
  */
 package View;
 
-import Control.ConnectionController;
-import Control.LoginController;
+import Controllers.ConnectionController;
+import Controllers.LoginController;
 import javax.swing.JOptionPane;
 
 /**

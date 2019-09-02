@@ -5,7 +5,7 @@
  */
 package View;
 
-import Control.CrudController;
+import Controllers.CrudController;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;

@@ -5,8 +5,8 @@
  */
 package View;
 
-import Control.ConnectionController;
-import Control.CrudController;
+import Controllers.ConnectionController;
+import Controllers.CrudController;
 
 import java.sql.SQLException;
 import javax.swing.JOptionPane;

@@ -1,7 +1,6 @@
 {
   "ReportPath": {
-       "Path": "C:\\Users\\diegoalejo\\Documents\\NetBeansProjects\\TransportesDeColombiaSA\\",
-       "File1": "ReporteCliente.txt",
-       "File2": "ReporteEnvio.txt"      
+       "FileClient": "ReporteCliente.txt",
+       "FileShipment": "ReporteEnvio.txt"      
     }
 }

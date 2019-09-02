@@ -5,7 +5,7 @@
  */
 package View;
 
-import Control.CrudController;
+import Controllers.CrudController;
 import java.sql.Array;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -306,6 +306,7 @@ try {
             values.add(txtaddress.getText());
             values.add(txtcity.getText());
             values.add(txtcreatedby.getText());
+        
             crud.createstatement(clientname, columns, values);
             setTableSets();
             cleartxt();

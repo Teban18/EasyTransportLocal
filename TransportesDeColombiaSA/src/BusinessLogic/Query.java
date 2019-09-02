@@ -5,7 +5,7 @@
  */
 package BusinessLogic;
 
-import Control.ConnectionController;
+import Controllers.ConnectionController;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,7 +25,7 @@ public class Query {
         preparedstatement = connection.getConnection().prepareStatement(sql);
         preparedstatement.executeUpdate();
         }catch(SQLException e){
-            System.out.println("sendquery"+e.getMessage());
+            JOptionPane.showMessageDialog(null,"Error"+e.getMessage());
         }
     }
     
@@ -33,7 +33,7 @@ public class Query {
      try{
         preparedstatement.close();
      }catch(SQLException e){
-         System.out.println("Error cerrando la conexion ="+e.getMessage());
+          JOptionPane.showMessageDialog(null,"Error"+e.getMessage());
      }
     }
     
@@ -42,7 +42,7 @@ public class Query {
         Statement s = connection.getConnection().createStatement();
         rs = s.executeQuery(sql);
         }catch(SQLException e){
-            System.out.println("readquery "+ e.getMessage());
+             JOptionPane.showMessageDialog(null,"Error"+e.getMessage());
         }
         }
     

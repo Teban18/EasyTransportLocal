@@ -6,8 +6,8 @@
 package View;
 
 
-import Control.PathController;
-import Control.ReportController;
+import Controllers.PathController;
+import Controllers.ReportController;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -104,16 +104,18 @@ public class ReportView extends javax.swing.JFrame {
     private void btnclientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnclientActionPerformed
         try{ 
         reportController.sendReport(clientview.getClientName(), clientview.getColumns(),path.getClientpath());
+        JOptionPane.showMessageDialog(null, "Reporte Creado");
         }catch(Exception e){
-            System.out.println("error"+e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error"+ e.getMessage());
         }
     }//GEN-LAST:event_btnclientActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         try{
         reportController.sendReport(shview.getShname(), shview.getColumns(),path.getShpath());
+        JOptionPane.showMessageDialog(null, "Reporte Creado");
         }catch(Exception e){
-            System.out.println("error"+e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error"+ e.getMessage());
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
